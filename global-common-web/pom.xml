@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>global-common</artifactId>
+        <groupId>com.amber.star</groupId>
+        <version>1.0.0.Common</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>global-common-web</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>global-common-web-handle</module>
+        <module>global-common-web-hystrix</module>
+        <module>global-common-web-idempotent</module>
+        <module>global-common-web-swagger</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
