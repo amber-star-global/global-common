@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 操作人信息model
@@ -31,7 +32,7 @@ public class OperatorModel implements Serializable {
      */
     protected String name;
     /**
-     * 当前角色, 多角色用','拼接
+     * 当前角色
      */
-    protected String currentRole;
+    protected List<String> currentRole;
 }

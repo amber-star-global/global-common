@@ -20,5 +20,5 @@ public class ResponseBody<T> implements Serializable {
     /**
      * 返回数据
      */
-    private T responseObject;
+    private T object;
 }

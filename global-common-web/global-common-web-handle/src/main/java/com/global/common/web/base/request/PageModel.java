@@ -6,6 +6,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 /**
  * 列表分页model
  * @Author: 鲁砚琨
@@ -23,9 +26,14 @@ public class PageModel extends OperatorModel {
     /**
      * 当前页
      */
+    @Min(value = 0, message = "当前页必须大于0")
+    @NotNull(message = "当前页不能为空")
     protected Integer currentPage;
+
     /**
      * 显示条数
      */
+    @Min(value = 0, message = "显示条数必须大于0")
+    @NotNull(message = "显示条数不能为空")
     protected Integer pageSize;
 }

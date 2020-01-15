@@ -3,26 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>global-common</artifactId>
+        <artifactId>global-common-utils</artifactId>
         <groupId>com.amber.star</groupId>
         <version>1.0.0.Common</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>global-common-utils</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>global-common-utils-file</module>
-        <module>global-common-utils-constants</module>
-        <module>global-common-utils-node</module>
-    </modules>
+    <artifactId>global-common-utils-file</artifactId>
 
     <dependencies>
-
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.54</version>
+            <groupId>net.sourceforge.javacsv</groupId>
+            <artifactId>javacsv</artifactId>
+            <version>2.0</version>
         </dependency>
     </dependencies>
 </project>

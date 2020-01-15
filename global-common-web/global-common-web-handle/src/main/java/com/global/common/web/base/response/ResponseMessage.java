@@ -136,17 +136,17 @@ public class ResponseMessage<T> implements Serializable {
             return false;
         if (this.getResponseBody() == null)
             return false;
-        if (this.getResponseBody().getResponseObject() == null)
+        if (this.getResponseBody().getObject() == null)
             return false;
-        if (this.getResponseBody().getResponseObject() instanceof List)
-            return  ((List) this.getResponseBody().getResponseObject()).size() > 0;
+        if (this.getResponseBody().getObject() instanceof List)
+            return  ((List) this.getResponseBody().getObject()).size() > 0;
         return true;
     }
 
     /**
      * 获取接口返回数据
      */
-    public T getResponseObject() {
-        return hasObject() ? getResponseBody().getResponseObject() : null;
+    public T getObject() {
+        return hasObject() ? getResponseBody().getObject() : null;
     }
 }
