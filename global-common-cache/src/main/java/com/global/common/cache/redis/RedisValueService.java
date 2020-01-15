@@ -12,8 +12,8 @@ import java.util.Map;
  * @CreateTime: 2020-01-14 下午 03:14
  * @Version: v1.0
  */
-@Service
-public class RedisValueService extends RedisService {
+@Service(value = "redisValueService")
+public class RedisValueService extends RedisBasicService {
 
     /**
      * 设置键值

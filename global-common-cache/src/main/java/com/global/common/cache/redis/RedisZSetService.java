@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
  * @CreateTime: 2020-01-14 下午 03:15
  * @Version: v1.0
  */
-@Service
-public class RedisZSetService extends RedisService {
+@Service(value = "redisZSetService")
+public class RedisZSetService extends RedisBasicService {
 
     /**
      * 有序集合，通过key添加元素

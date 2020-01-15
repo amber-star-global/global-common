@@ -1,10 +1,13 @@
-package com.global.common.cache.redis;
+package com.global.common.cache.redis.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -16,6 +19,7 @@ import redis.clients.jedis.JedisPoolConfig;
  * @CreateTime: 2020-01-14 上午 11:49
  * @Version: v1.0
  */
+@Slf4j
 @Configuration
 @EnableCaching
 public class RedisCacheConfig extends CachingConfigurerSupport {
@@ -74,11 +78,17 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
     @Value(value = "${spring.redis.pool.max-wait}")
     private int maxWait;
 
+    @Bean
+    public CacheManager cacheManager(RedisTemplate<String, Object> redisTemplate) {
+        return new RedisCacheManager(redisTemplate);
+    }
+
     /**
      * redis模板配置
      */
     @Bean
     public RedisTemplate<String, Object> redisTemplate() {
+        log.debug("设置redis模板。。。。");
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(connectionFactory());
         return redisTemplate;
@@ -86,6 +96,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
 
     @Bean
     public JedisPool poolFactory() {
+        log.debug("设置redis连接池。。。");
         return new JedisPool(poolConfig(), host, port, timeout, password, database);
     }
 
@@ -93,6 +104,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
      * 连接工厂配置
      */
     private RedisConnectionFactory connectionFactory() {
+        log.debug("创建redis连接工厂。。。");
         JedisConnectionFactory factory = new JedisConnectionFactory();
         factory.setHostName(host);
         factory.setPort(port);
@@ -107,6 +119,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
      * 连接池配置
      */
     private JedisPoolConfig poolConfig(){
+        log.debug("设置redis连接池配置。。。");
         JedisPoolConfig poolConfig = new JedisPoolConfig();
         poolConfig.setMaxIdle(maxIdle);
         poolConfig.setMinIdle(minIdle);

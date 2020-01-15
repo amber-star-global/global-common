@@ -14,8 +14,8 @@ import java.util.concurrent.TimeUnit;
  * @CreateTime: 2020-01-14 下午 02:09
  * @Version: v1.0
  */
-@Service
-public class RedisService {
+@Service(value = "redisService")
+public class RedisBasicService {
 
     @Autowired
     protected RedisTemplate<String, Object> redisTemplate;
