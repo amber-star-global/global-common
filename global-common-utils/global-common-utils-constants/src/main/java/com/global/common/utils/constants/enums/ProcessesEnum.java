@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 @AllArgsConstructor
 @Getter
-public enum  ProcessesEnum implements EnumHandle<ProcessesEnum> {
+public enum  ProcessesEnum {
 
     UN_PROCESSED(1, "未处理"),
     PROCESSING(2, "处理中"),
@@ -37,8 +37,7 @@ public enum  ProcessesEnum implements EnumHandle<ProcessesEnum> {
      *
      * @param code 枚举编码
      */
-    @Override
-    public ProcessesEnum getEnum(Integer code) {
+    public static ProcessesEnum getEnum(Integer code) {
         Optional<ProcessesEnum> optional = Arrays.stream(ProcessesEnum.values())
                 .filter(e -> e.getCode().equals(code)).findFirst();
         return optional.isPresent() ? optional.get() : null;
@@ -49,8 +48,7 @@ public enum  ProcessesEnum implements EnumHandle<ProcessesEnum> {
      *
      * @param code 枚举编码
      */
-    @Override
-    public String getEnumDesc(Integer code) {
+    public static String getEnumDesc(Integer code) {
         ProcessesEnum object = getEnum(code);
         return object != null ? object.getDesc() : null;
     }

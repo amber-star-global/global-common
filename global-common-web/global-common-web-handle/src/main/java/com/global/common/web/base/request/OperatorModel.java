@@ -22,15 +22,15 @@ public class OperatorModel implements Serializable {
     /**
      * 操作人Id
      */
-    protected Long operatorId;
+    protected Long operatorId = 1L;
     /**
      * 操作人手机号
      */
-    protected String phone;
+    protected String phone = "13000000000";
     /**
      * 操作人名称
      */
-    protected String name;
+    protected String name = "admin";
     /**
      * 当前角色
      */

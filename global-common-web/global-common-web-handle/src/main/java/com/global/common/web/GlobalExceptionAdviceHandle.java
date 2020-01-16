@@ -21,6 +21,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.Set;
 
 /**
+ * 全局异常统一处理类
  * @Author: 鲁砚琨
  * @CreateTime: 2019-12-11 下午 02:56
  * @Version: v1.0
@@ -76,7 +77,7 @@ public class GlobalExceptionAdviceHandle {
     @ExceptionHandler(value = {ConstraintViolationException.class})
     public ResponseMessage constraintViolationExceptionHandle(ConstraintViolationException e) {
         log.error("捕获异常校验异常: {}", e.getMessage());
-        BusinessEnum businessEnum = BusinessEnum.REQUEST_AUTH_PARAM_NOT_NULL;
+        BusinessEnum businessEnum = BusinessEnum.REQUEST_AUTH_PARAM_OUT_THRESHOLD;
         String symbol = ",";
         StringBuilder strBuilder = setValidHeaderInfo(businessEnum);
         Set<ConstraintViolation<?>> violations = e.getConstraintViolations();
@@ -84,7 +85,7 @@ public class GlobalExceptionAdviceHandle {
             strBuilder.append(violation.getMessage()).append(symbol);
         }
         strBuilder.deleteCharAt(strBuilder.lastIndexOf(symbol));
-        return ResponseMessage.fail(BusinessEnum.REQUEST_AUTH_PARAM_NOT_NULL, strBuilder.toString());
+        return ResponseMessage.fail(BusinessEnum.REQUEST_AUTH_PARAM_OUT_THRESHOLD, strBuilder.toString());
     }
 
     /**

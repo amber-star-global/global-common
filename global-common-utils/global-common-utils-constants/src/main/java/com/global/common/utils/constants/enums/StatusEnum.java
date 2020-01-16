@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 @AllArgsConstructor
 @Getter
-public enum  StatusEnum implements EnumHandle<StatusEnum> {
+public enum  StatusEnum {
 
     DISABLED(0, "禁用"),
     ENABLE(1, "启用");
@@ -34,7 +34,6 @@ public enum  StatusEnum implements EnumHandle<StatusEnum> {
      *
      * @param code 枚举编码
      */
-    @Override
     public StatusEnum getEnum(Integer code) {
         Optional<StatusEnum> optional = Arrays.stream(StatusEnum.values())
                 .filter(e -> e.getCode().equals(code)).findFirst();
@@ -46,7 +45,6 @@ public enum  StatusEnum implements EnumHandle<StatusEnum> {
      *
      * @param code 枚举编码
      */
-    @Override
     public String getEnumDesc(Integer code) {
         StatusEnum object = getEnum(code);
         return object != null ? object.getDesc() : null;

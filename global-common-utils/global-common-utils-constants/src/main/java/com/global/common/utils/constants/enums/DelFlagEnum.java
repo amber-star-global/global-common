@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 @AllArgsConstructor
 @Getter
-public enum DelFlagEnum implements EnumHandle<DelFlagEnum> {
+public enum DelFlagEnum {
 
     DELETE(0, "删除"),
     NORMAL(1, "正常"),
@@ -34,8 +34,7 @@ public enum DelFlagEnum implements EnumHandle<DelFlagEnum> {
      *
      * @param code 枚举编码
      */
-    @Override
-    public DelFlagEnum getEnum(Integer code) {
+    public static DelFlagEnum getEnum(Integer code) {
         Optional<DelFlagEnum> optional = Arrays.stream(DelFlagEnum.values())
                 .filter(e -> e.getCode().equals(code)).findFirst();
         return optional.isPresent() ? optional.get() : null;
@@ -46,8 +45,7 @@ public enum DelFlagEnum implements EnumHandle<DelFlagEnum> {
      *
      * @param code 枚举编码
      */
-    @Override
-    public String getEnumDesc(Integer code) {
+    public static String getEnumDesc(Integer code) {
         DelFlagEnum object = getEnum(code);
         return object != null ? object.getDesc() : null;
     }
