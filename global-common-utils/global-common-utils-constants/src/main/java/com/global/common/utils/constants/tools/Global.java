@@ -21,5 +21,5 @@ public interface Global {
     /**
      * 字符集：UTF-8
      */
-    String ENCODING_UTF8 = "UTF-8";
+    String DEFAULT_ENCODING_UTF8 = "UTF-8";
 }

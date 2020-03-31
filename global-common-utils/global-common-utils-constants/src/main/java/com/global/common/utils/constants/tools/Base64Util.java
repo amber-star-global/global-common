@@ -28,7 +28,7 @@ public class Base64Util {
      */
     public static String decode(String data) {
         try {
-            return new String(Base64.getDecoder().decode(data), Global.ENCODING_UTF8);
+            return new String(Base64.getDecoder().decode(data), Global.DEFAULT_ENCODING_UTF8);
         } catch (UnsupportedEncodingException e) {
             log.error(e.getMessage(), e);
             return null;
