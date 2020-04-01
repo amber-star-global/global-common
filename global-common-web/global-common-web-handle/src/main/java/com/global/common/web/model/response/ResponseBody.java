@@ -1,4 +1,4 @@
-package com.global.common.web.base.response;
+package com.global.common.web.model.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

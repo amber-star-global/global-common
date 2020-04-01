@@ -1,4 +1,4 @@
-package com.global.common.web.base.request;
+package com.global.common.web.model.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

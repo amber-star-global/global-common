@@ -1,7 +1,9 @@
 package com.global.common.web;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * @Author: 鲁砚琨
@@ -10,7 +12,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  */
 @Slf4j
 @EnableWebMvc
-public class WebConfig {
+@Configuration
+public class WebConfig extends WebMvcConfigurerAdapter {
 
     // TODO 没有处理
+
 }

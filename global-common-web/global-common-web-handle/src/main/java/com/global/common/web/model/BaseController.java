@@ -1,7 +1,7 @@
-package com.global.common.web.base;
+package com.global.common.web.model;
 
-import com.global.common.web.base.response.ResponseBody;
-import com.global.common.web.base.response.ResponseMessage;
+import com.global.common.web.model.response.ResponseBody;
+import com.global.common.web.model.response.ResponseMessage;
 import lombok.extern.slf4j.Slf4j;
 
 /**

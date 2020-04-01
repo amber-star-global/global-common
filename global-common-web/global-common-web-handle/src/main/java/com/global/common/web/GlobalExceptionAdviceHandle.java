@@ -2,7 +2,7 @@ package com.global.common.web;
 
 import com.global.common.exception.BusinessException;
 import com.global.common.exception.BusinessEnum;
-import com.global.common.web.base.response.ResponseMessage;
+import com.global.common.web.model.response.ResponseMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;

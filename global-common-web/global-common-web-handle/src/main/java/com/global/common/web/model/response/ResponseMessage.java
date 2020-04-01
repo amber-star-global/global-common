@@ -1,4 +1,4 @@
-package com.global.common.web.base.response;
+package com.global.common.web.model.response;
 
 import com.global.common.exception.BusinessException;
 import com.global.common.exception.BusinessEnum;

@@ -18,6 +18,7 @@
         <module>global-common-web-hystrix</module>
         <module>global-common-web-idempotent</module>
         <module>global-common-web-swagger</module>
+        <module>global-common-web-feign</module>
     </modules>
 
     <dependencies>
