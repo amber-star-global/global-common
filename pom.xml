@@ -15,6 +15,8 @@
         <module>global-common-utils</module>
         <module>global-common-valid</module>
         <module>global-common-web</module>
+        <module>global-common-message</module>
+        <module>global-common-persistence</module>
     </modules>
     <packaging>pom</packaging>
 
