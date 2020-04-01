@@ -47,6 +47,16 @@ public class BusinessException extends RuntimeException {
     }
 
     /**
+     * 非业务抛出异常
+     * @param businessEnum 在业务处理中,抛出非业务异常
+     */
+    public BusinessException(BusinessEnum businessEnum) {
+        this.businessEnum = businessEnum;
+        this.code = businessEnum.getCode();
+        this.message = businessEnum.getMessage();
+    }
+
+    /**
      *
      * @param code
      * @param message

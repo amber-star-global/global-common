@@ -112,6 +112,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
         factory.setPassword(password);
         factory.setPoolConfig(poolConfig());
         factory.afterPropertiesSet();
+        log.debug("连接工厂配置参数, host: {}, port: {}, database: {}, password: {}", host, port, database, password);
         return factory;
     }
 

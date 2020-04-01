@@ -86,7 +86,7 @@ public class ResponseMessage<T> implements Serializable {
      * @param e 业务异常
      */
     public static ResponseMessage fail(BusinessException e) {
-        return fail(e.getBusinessEnum());
+        return fail(e.getCode(), e.getMessage(), null);
     }
 
     /**

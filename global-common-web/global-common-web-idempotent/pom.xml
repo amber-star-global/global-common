@@ -11,5 +11,20 @@
 
     <artifactId>global-common-web-idempotent</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.amber.star</groupId>
+            <artifactId>global-common-exception</artifactId>
+            <version>1.0.0.Common</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amber.star</groupId>
+            <artifactId>global-common-cache</artifactId>
+            <version>1.0.0.Common</version>
+        </dependency>
+    </dependencies>
 </project>
