@@ -1,10 +1,10 @@
 package com.global.common.utils.tree;
 
+import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,18 +26,18 @@ public class ManyNode<T> extends Node<T> {
     private List<ManyNode<T>> children;
 
     public ManyNode() {
-        this.children = new ArrayList<>();
+        this.children = Lists.newArrayList();
     }
 
     public ManyNode(Long nodeId) {
         super.nodeId = nodeId;
-        this.children = new ArrayList<>();
+        this.children = Lists.newArrayList();
     }
 
     public ManyNode(Long nodeId, Long parentId, T object) {
         super.nodeId = nodeId;
         super.parentId = parentId;
         super.object = object;
-        this.children = new ArrayList<>();
+        this.children = Lists.newArrayList();
     }
 }

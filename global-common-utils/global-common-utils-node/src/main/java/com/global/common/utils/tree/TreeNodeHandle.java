@@ -1,13 +1,13 @@
 package com.global.common.utils.tree;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 树形结构处理类
@@ -21,7 +21,7 @@ public class TreeNodeHandle<T> {
 
     private ManyNode<T> root;
 
-    private Map<Long, List<ManyNode<T>>> nodeMap = new ConcurrentHashMap<>();
+    private Map<Long, List<ManyNode<T>>> nodeMap = Maps.newConcurrentMap();
 
     public TreeNodeHandle(Long rootNodeId, List<ManyNode<T>> manyNodes) {
         root = new ManyNode<>(rootNodeId);
@@ -74,7 +74,7 @@ public class TreeNodeHandle<T> {
             List<ManyNode<T>> nodeList = nodeMap.get(parentId);
             // 校验当前节点是否已存在集合，不存在创建
             if (nodeList == null)
-                nodeList = new ArrayList<>();
+                nodeList = Lists.newArrayList();
             nodeList.add(node);
             // 把当前节点归档到父级Id的集合下
             nodeMap.put(parentId, nodeList);
