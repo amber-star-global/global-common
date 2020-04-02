@@ -17,6 +17,7 @@
         <module>global-common-web</module>
         <module>global-common-message</module>
         <module>global-common-persistence</module>
+        <module>global-common-task</module>
     </modules>
     <packaging>pom</packaging>
 
