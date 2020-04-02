@@ -11,6 +11,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration
-@MapperScan(basePackages = "${mybatis.mapper.scan.package}")
+@MapperScan(basePackages = "${global.mybatis.mapper.scan.package}")
 public class MyBatisConfig {
 }

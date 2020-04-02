@@ -30,7 +30,7 @@ public class SwaggerConfig {
     @Autowired
     private Environment env;
 
-    @Value(value = "${swagger.scan.package}")
+    @Value(value = "${global.swagger.scan.package}")
     private String swaggerScanPackage;
 
 
