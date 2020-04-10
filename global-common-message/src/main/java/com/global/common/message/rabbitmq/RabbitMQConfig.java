@@ -17,7 +17,7 @@ import org.springframework.amqp.support.converter.SimpleMessageConverter;
 import java.util.concurrent.Executor;
 
 @Slf4j
-public class RabbitMQConfig implements RabbitTemplate.ConfirmCallback, RabbitTemplate.ReturnCallback {
+public class RabbitMQConfig extends AbstractRabbitMQConfig implements RabbitTemplate.ConfirmCallback, RabbitTemplate.ReturnCallback {
 
     /**
      * 创建MQ连接工厂
