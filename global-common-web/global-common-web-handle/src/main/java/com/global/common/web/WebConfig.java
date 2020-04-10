@@ -24,7 +24,9 @@ import java.util.List;
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
 
-
+    /**
+     * jackson消息转换
+     */
     @Bean
     public MappingJackson2HttpMessageConverter jacksonHttpMessageConverter() {
         MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
@@ -37,7 +39,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        log.info("[启动配置处理]配置消息转换.....");
+        log.info("[启动配置处理]配置消息转换......");
         converters.add(jacksonHttpMessageConverter());
     }
 
@@ -46,7 +48,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        log.info("[启动配置处理]配置跨域访问.....");
+        log.info("[启动配置处理]配置跨域访问......");
         registry.addMapping("/**")
                 .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
@@ -58,7 +60,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-        log.info("[启动配置处理]");
+        log.info("[启动配置内容裁决解析器处理]配置内容裁决解析器处理......");
         configurer.favorPathExtension(false);
     }
 
@@ -67,7 +69,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        log.info("[启动配置处理]配置默认servlet处理方式...");
+        log.info("[启动配置处理]配置默认servlet处理方式......");
         configurer.enable();
     }
 }
