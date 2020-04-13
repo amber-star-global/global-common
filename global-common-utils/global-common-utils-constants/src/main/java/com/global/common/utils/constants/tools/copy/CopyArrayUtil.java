@@ -1,4 +1,4 @@
-package com.global.common.utils.constants.tools;
+package com.global.common.utils.constants.tools.copy;
 
 import java.util.Arrays;
 
@@ -7,7 +7,7 @@ import java.util.Arrays;
  * @CreateTime: 2020-04-02 上午 11:10
  * @Version: v1.0
  */
-public class CopyUtil {
+public class CopyArrayUtil {
 
     /**
      * 数组合并

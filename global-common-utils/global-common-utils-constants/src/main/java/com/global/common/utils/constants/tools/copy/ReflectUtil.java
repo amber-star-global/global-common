@@ -1,4 +1,4 @@
-package com.global.common.utils.constants.tools;
+package com.global.common.utils.constants.tools.copy;
 
 import com.global.common.utils.constants.tools.verify.VerifyUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class ReflectUtil {
         Field[] currentFields = {};
         while (objectClass != Object.class) {
             final Field[] fields = objectClass.getDeclaredFields();
-            currentFields = CopyUtil.arrayMerge(fields, currentFields);
+            currentFields = CopyArrayUtil.arrayMerge(fields, currentFields);
             objectClass = objectClass.getSuperclass();
         }
         return currentFields;
@@ -57,6 +57,21 @@ public class ReflectUtil {
         } catch (IllegalAccessException e) {
             log.error("获取字段值异常!", e);
             return null;
+        }
+    }
+
+    /**
+     * 字段赋值
+     * @param object 需要赋值的对象
+     * @param field 赋值字段
+     * @param value 设置值
+     */
+    public static <T> void setFiledValue(T object, Field field, Object value) {
+        try {
+            setAccessible(field);
+            field.set(object, value);
+        } catch (IllegalAccessException e) {
+            log.error("字段赋值异常!", e);
         }
     }
 
