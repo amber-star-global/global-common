@@ -18,6 +18,7 @@
         <module>global-common-message</module>
         <module>global-common-persistence</module>
         <module>global-common-task</module>
+        <module>global-common-logger</module>
     </modules>
     <packaging>pom</packaging>
 
