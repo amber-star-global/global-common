@@ -26,10 +26,5 @@
             <artifactId>global-common-web-swagger</artifactId>
             <version>1.0.0.Common</version>
         </dependency>
-        <dependency>
-            <groupId>com.amber.star</groupId>
-            <artifactId>global-common-utils</artifactId>
-            <version>1.0.0.Common</version>
-        </dependency>
     </dependencies>
 </project>
