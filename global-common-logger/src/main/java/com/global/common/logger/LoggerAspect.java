@@ -28,7 +28,7 @@ public class LoggerAspect {
         // 是否将请求参数及返回参数转换成json格式
         boolean isJson = logger.isJson();
         // 当前方法名称
-        String currentMethod = logger.methodName().equals("") ? point.getSignature().getName() : logger.methodName();
+        String currentMethod = "".equals(logger.methodName()) ? point.getSignature().getName() : logger.methodName();
         // 当前方法请求参数
         Object[] currentArgs = point.getArgs();
         try {
