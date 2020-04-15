@@ -31,10 +31,14 @@ public class LoggerAspect {
         String currentMethod = "".equals(logger.methodName()) ? point.getSignature().getName() : logger.methodName();
         // 当前方法请求参数
         Object[] currentArgs = point.getArgs();
+        // 获取当前方法的日志级别
+        Logger.LoggerLevelEnum level = logger.level();
         try {
-            log.info(String.format("调用当前方法: %s, 请求参数: %s", currentMethod, isJson ? currentArgs.length == 1 ? JSON.toJSONString(currentArgs[0]) : JSON.toJSONString(currentArgs) : currentArgs));
+            String paramMessage = String.format("调用当前方法: %s, 请求参数: %s", currentMethod, isJson ? currentArgs.length == 1 ? JSON.toJSONString(currentArgs[0]) : JSON.toJSONString(currentArgs) : currentArgs);
+            switchLevel(level, paramMessage);
             Object proceed = point.proceed();
-            log.info(String.format("调用当前方法: %s, 返回结果: %s", currentMethod, isJson ? JSON.toJSONString(proceed) : proceed));
+            String resultMessage = String.format("调用当前方法: %s, 返回结果: %s", currentMethod, isJson ? JSON.toJSONString(proceed) : proceed);
+            switchLevel(level, resultMessage);
             return proceed;
         } catch (Throwable e) {
             log.error(String.format("调用当前方法: %s, 异常信息: %s", currentMethod, e.getMessage()));
@@ -42,4 +46,20 @@ public class LoggerAspect {
         }
     }
 
+    /**
+     * 选择日志输出
+     * @param level 日志等级
+     * @param message 输出消息
+     */
+    private void switchLevel(Logger.LoggerLevelEnum level, String message) {
+        switch (level) {
+            case INFO:
+                log.info(message);
+                break;
+            case DEBUG:
+            default:
+                log.debug(message);
+                break;
+        }
+    }
 }

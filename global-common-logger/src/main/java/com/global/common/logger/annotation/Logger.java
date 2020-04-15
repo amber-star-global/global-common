@@ -17,7 +17,27 @@ import java.lang.annotation.Target;
 @Documented // 生产文档
 public @interface Logger {
 
+    /**
+     * 记录日志的方法名称
+     */
     String methodName() default "";
 
+    /**
+     * 是否用json格式
+     */
     boolean isJson() default true;
+
+    /**
+     * 日志级别
+     */
+    LoggerLevelEnum level() default LoggerLevelEnum.DEBUG;
+
+    /**
+     * 日志级别
+     */
+    enum LoggerLevelEnum {
+        INFO,
+        DEBUG,
+        ;
+    }
 }
