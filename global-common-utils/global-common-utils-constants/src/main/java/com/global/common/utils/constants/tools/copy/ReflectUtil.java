@@ -1,6 +1,5 @@
 package com.global.common.utils.constants.tools.copy;
 
-import com.global.common.utils.constants.tools.verify.VerifyUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
@@ -104,7 +103,7 @@ public class ReflectUtil {
         Map<String, Object> map = new ConcurrentHashMap<>();
         for (Field field : fields) {
             String key = field.getName();
-            if (VerifyUtil.verifySerializableField(field)) {
+            if ("serialVersionUID".equals(key)) {
                 continue;
             }
             Object value = getFieldValue(object, field);
