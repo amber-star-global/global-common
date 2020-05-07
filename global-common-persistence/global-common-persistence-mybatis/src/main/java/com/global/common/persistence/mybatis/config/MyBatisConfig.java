@@ -1,8 +1,13 @@
 package com.global.common.persistence.mybatis.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 
 /**
  * @Author: 鲁砚琨
@@ -11,6 +16,22 @@ import org.springframework.context.annotation.Configuration;
  */
 @Slf4j
 @Configuration
-@MapperScan(basePackages = "${global.mybatis.mapper.scan.package}")
-public class MyBatisConfig {
+@AutoConfigureAfter(MybatisAutoConfiguration.class)
+public class MyBatisConfig implements EnvironmentAware {
+
+    private String mapperScan;
+
+    @Bean
+    public MapperScannerConfigurer mapperScannerConfigurer() {
+        log.debug("配置Mybatis映射扫描路径: {}", mapperScan);
+        MapperScannerConfigurer configurer = new MapperScannerConfigurer();
+        configurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
+        configurer.setBasePackage(mapperScan);
+        return configurer;
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        mapperScan = environment.getProperty("global.mybatis.mapper.scan.package");
+    }
 }
