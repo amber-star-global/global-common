@@ -1,5 +1,6 @@
 package com.global.common.message.rabbitmq;
 
+import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -44,5 +45,6 @@ public abstract class AbstractRabbitMQConfig {
      * @param connectionFactory 连接工厂
      * @param taskExecutor 线程池
      */
-    abstract SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory, Executor taskExecutor);
+    abstract SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(
+            ConnectionFactory connectionFactory, Executor taskExecutor, AcknowledgeMode acknowledgeMode);
 }

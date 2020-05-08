@@ -1,11 +1,8 @@
 package com.global.common.message.rabbitmq;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Exchange;
+import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -59,6 +56,8 @@ public class RabbitMQConfig extends AbstractRabbitMQConfig implements RabbitTemp
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setReturnCallback(this::returnedMessage);
         rabbitTemplate.setConfirmCallback(this::confirm);
+        // 需要手动确认消息
+        rabbitTemplate.setMandatory(true);
         return rabbitTemplate;
     }
 
@@ -68,34 +67,25 @@ public class RabbitMQConfig extends AbstractRabbitMQConfig implements RabbitTemp
      * @param taskExecutor 线程池
      */
     protected SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(
-            ConnectionFactory connectionFactory, Executor taskExecutor){
+            ConnectionFactory connectionFactory, Executor taskExecutor, AcknowledgeMode acknowledgeMode){
         log.info("创建rabbitListenerContainerFactory...");
         SimpleRabbitListenerContainerFactory listenerContainerFactory = new SimpleRabbitListenerContainerFactory();
         listenerContainerFactory.setConnectionFactory(connectionFactory);
+        listenerContainerFactory.setMessageConverter(new SimpleMessageConverter());
+        listenerContainerFactory.setAcknowledgeMode(acknowledgeMode);
         if (taskExecutor != null)
             listenerContainerFactory.setTaskExecutor(taskExecutor);
-        listenerContainerFactory.setMessageConverter(new SimpleMessageConverter());
         return listenerContainerFactory;
     }
 
-    /**
-     * 注册routingKey
-     * @param rabbitAdmin MQ管理
-     * @param queue 队列
-     * @param exchange 交换机
-     * @param routingKeys 路由键
-     */
-    protected RabbitAdmin registryRoutes(RabbitAdmin rabbitAdmin, Queue queue, Exchange exchange, String... routingKeys){
-        for (String routingKey : routingKeys) {
-            Binding productToCustomerRequest = BindingBuilder.bind(queue).to(exchange)
-                    .with(routingKey).noargs();
-            rabbitAdmin.declareBinding(productToCustomerRequest);
-        }
-        return rabbitAdmin;
-    }
 
     @Override
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
+        log.info("本次消息的唯一标识: {}", correlationData.getId());
+        if (ack)
+            log.info("消息已确认");
+        else
+            log.info("消息被拒绝, 拒绝原因: {}", cause);
     }
 
     @Override
