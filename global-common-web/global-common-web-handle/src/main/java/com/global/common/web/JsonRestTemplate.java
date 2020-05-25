@@ -2,7 +2,6 @@ package com.global.common.web;
 
 import com.alibaba.fastjson.JSON;
 import com.global.common.web.model.JsonHttpEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,10 +13,8 @@ import java.util.Map;
  * @Version: v1.0
  */
 @Component
-public class JsonRestTemplate {
+public class JsonRestTemplate extends RestTemplate{
 
-    @Autowired
-    private RestTemplate restTemplate;
 
     /**
      * post请求
@@ -26,7 +23,7 @@ public class JsonRestTemplate {
      * @param resClass 返回对象
      */
     public <REQ, RES> RES postForObject(String url, REQ req, Class<RES> resClass) {
-        String resJson = restTemplate.postForObject(url, JsonHttpEntity.toJson(req), String.class);
+        String resJson = super.postForObject(url, JsonHttpEntity.toJson(req), String.class);
         return JSON.parseObject(resJson, resClass);
     }
 
@@ -37,7 +34,7 @@ public class JsonRestTemplate {
      * @param params 请求参数
      */
     public <RES> RES getForObject(String url, Map<String, ?> params, Class<RES> resClass) {
-        String resJson = restTemplate.getForObject(url, String.class, params);
+        String resJson = super.getForObject(url, String.class, params);
         return JSON.parseObject(resJson, resClass);
     }
 
@@ -47,7 +44,7 @@ public class JsonRestTemplate {
      * @param resClass 返回对象
      */
     public <RES> RES getForObject(String url, Class<RES> resClass) {
-        String resJson = restTemplate.getForObject(url, String.class);
+        String resJson = super.getForObject(url, String.class);
         return JSON.parseObject(resJson, resClass);
     }
 
