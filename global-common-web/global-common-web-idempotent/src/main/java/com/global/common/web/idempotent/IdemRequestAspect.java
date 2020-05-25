@@ -5,7 +5,6 @@ import com.global.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,11 +26,7 @@ public class IdemRequestAspect {
     @Autowired
     private HttpServletRequest request;
 
-    @Pointcut(value = "@annotation(com.global.common.web.idempotent.annotation.IdemRequest)")
-    private void matchIdemRequest(){}
-
-
-    @Before(value = "matchIdemRequest()")
+    @Before(value = "@annotation(com.global.common.web.idempotent.annotation.IdemRequest)")
     public void before() throws BusinessException {
         log.info("进行幂等校验处理...");
         // 获取请求头token信息
