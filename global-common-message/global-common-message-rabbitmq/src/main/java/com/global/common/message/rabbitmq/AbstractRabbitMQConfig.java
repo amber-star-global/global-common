@@ -24,27 +24,27 @@ public abstract class AbstractRabbitMQConfig {
      * @param password 密码
      * @param virtualHost VHost
      */
-    abstract ConnectionFactory connectionFactory(String host, int port, String username, String password, String virtualHost);
+    protected abstract ConnectionFactory connectionFactory(String host, int port, String username, String password, String virtualHost);
 
 
     /**
      * 创建MQ管理
      * @param connectionFactory 连接工厂
      */
-    abstract RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory);
+    protected abstract RabbitAdmin rabbitAdmin(ConnectionFactory connectionFactory);
 
 
     /**
      * 创建MQ模板
      * @param connectionFactory 连接工厂
      */
-    abstract RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory);
+    protected abstract RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory);
 
     /**
      * 创建MQ消息监听工厂
      * @param connectionFactory 连接工厂
      * @param taskExecutor 线程池
      */
-    abstract SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(
+    protected abstract SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(
             ConnectionFactory connectionFactory, Executor taskExecutor, AcknowledgeMode acknowledgeMode);
 }
