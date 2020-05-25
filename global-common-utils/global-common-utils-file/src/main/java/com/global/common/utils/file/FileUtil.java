@@ -29,7 +29,7 @@ public class FileUtil {
     public static File getDirectory(String filePath) throws IOException {
         File file = new File(filePath);
         if (!exists(file)) {
-            if (!file.mkdir()) {
+            if (!file.mkdirs()) {
                 throw new IOException("文件路径: " + filePath + "不能创建!");
             }
         }
