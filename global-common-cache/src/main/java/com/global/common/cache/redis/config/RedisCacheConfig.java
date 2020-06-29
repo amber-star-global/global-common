@@ -87,30 +87,31 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
      * redis模板配置
      */
     @Bean
-    public RedisTemplate<String, Object> redisTemplate() {
+    public RedisTemplate<String, Object> redisTemplate(JedisPoolConfig poolConfig) {
         log.debug("设置redis模板。。。。");
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(connectionFactory());
+        redisTemplate.setConnectionFactory(connectionFactory(poolConfig));
         return redisTemplate;
     }
 
     @Bean
-    public JedisPool poolFactory() {
+    public JedisPool poolFactory(JedisPoolConfig poolConfig) {
         log.debug("设置redis连接池。。。");
-        return new JedisPool(poolConfig(), host, port, timeout, password, database);
+        return new JedisPool(poolConfig, host, port, timeout, password, database);
     }
 
     /**
      * 连接工厂配置
      */
-    private RedisConnectionFactory connectionFactory() {
+    @Bean
+    public RedisConnectionFactory connectionFactory(JedisPoolConfig poolConfig) {
         log.debug("创建redis连接工厂。。。");
         JedisConnectionFactory factory = new JedisConnectionFactory();
         factory.setHostName(host);
         factory.setPort(port);
         factory.setDatabase(database);
         factory.setPassword(password);
-        factory.setPoolConfig(poolConfig());
+        factory.setPoolConfig(poolConfig);
         factory.afterPropertiesSet();
         log.debug("连接工厂配置参数, host: {}, port: {}, database: {}, password: {}", host, port, database, password);
         return factory;
@@ -119,7 +120,8 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
     /**
      * 连接池配置
      */
-    private JedisPoolConfig poolConfig(){
+    @Bean
+    public JedisPoolConfig poolConfig(){
         log.debug("设置redis连接池配置。。。");
         JedisPoolConfig poolConfig = new JedisPoolConfig();
         poolConfig.setMaxIdle(maxIdle);
