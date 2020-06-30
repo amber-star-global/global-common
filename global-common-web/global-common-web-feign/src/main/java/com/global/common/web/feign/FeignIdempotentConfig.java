@@ -7,6 +7,7 @@ import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 
 import java.util.Collection;
 
@@ -17,7 +18,7 @@ import java.util.Collection;
  */
 @Slf4j
 @Configuration
-public class FeignIdempotentConfig implements RequestInterceptor {
+public class FeignIdempotentConfig implements RequestInterceptor, Ordered {
 
     @Autowired
     private IdempotentUtil idempotentUtil;
@@ -25,13 +26,18 @@ public class FeignIdempotentConfig implements RequestInterceptor {
     @Override
     public void apply(RequestTemplate template) {
         // feign接口幂等处理
-        log.info("获取feign接口调用信息; 调用接口: {}, 请求方式: {}", template.url(), template.method());
+        log.debug("获取feign接口调用信息; 调用接口: {}, 请求方式: {}", template.url(), template.method());
         Collection<String> feignTokenHeader = template.headers().get(GlobalIdempotent.REQUEST_IDEM_TOKEN);
         if (feignTokenHeader != null && feignTokenHeader.size() > 0) {
             // 当前接口需要实现幂等处理, 插入token值,
             String value = idempotentUtil.getToken();
-            log.info("添加feign幂等token: {}", value);
+            log.debug("添加feign幂等token: {}", value);
             template.header(GlobalIdempotent.REQUEST_IDEM_TOKEN, value);
         }
+    }
+
+    @Override
+    public int getOrder() {
+        return 0;
     }
 }
