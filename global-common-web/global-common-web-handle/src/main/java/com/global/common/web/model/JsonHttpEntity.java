@@ -17,7 +17,7 @@ public class JsonHttpEntity extends HttpEntity<String> {
     public static <T> HttpEntity toJson(T entity) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        String json = JSON.toJSONString(entity);
+        String json = entity instanceof String ? (String) entity : JSON.toJSONString(entity);
         return new HttpEntity<>(json, headers);
     }
 
