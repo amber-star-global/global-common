@@ -30,6 +30,17 @@ public class JsonRestTemplate extends RestTemplate {
     }
 
     /**
+     * post请求
+     * @param url 访问地址
+     * @param req 请求对象
+     * @param resClass 返回对象
+     */
+    public <REQ, RES> RES postForObject(String url, Map<String, ?> params, REQ req, Class<RES> resClass) {
+        String resJson = super.postForObject(setUrlParams(url, params), JsonHttpEntity.toJson(req), String.class);
+        return JSON.parseObject(resJson, resClass);
+    }
+
+    /**
      * GET请求
      * @param url 访问地址
      * @param resClass 返回对象
@@ -84,8 +95,8 @@ public class JsonRestTemplate extends RestTemplate {
 
     /**
      * 设置value值为集合时的处理
-     * @param key
-     * @param values
+     * @param key 参数名
+     * @param values 参数值
      */
     private String setCollectionParam(final String key, final Collection<?> values) {
         StringBuffer sb = new StringBuffer();
