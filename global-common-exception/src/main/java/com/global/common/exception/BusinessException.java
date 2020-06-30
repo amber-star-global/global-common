@@ -39,6 +39,7 @@ public class BusinessException extends RuntimeException {
 
     /**
      * 非业务抛出异常
+     *
      * @param exception 在业务处理中,抛出非业务异常
      */
     public BusinessException(Throwable exception) {
@@ -48,6 +49,7 @@ public class BusinessException extends RuntimeException {
 
     /**
      * 非业务抛出异常
+     *
      * @param businessEnum 在业务处理中,抛出非业务异常
      */
     public BusinessException(BusinessEnum businessEnum) {
@@ -57,7 +59,6 @@ public class BusinessException extends RuntimeException {
     }
 
     /**
-     *
      * @param code
      * @param message
      * @param exception
@@ -70,8 +71,9 @@ public class BusinessException extends RuntimeException {
 
     /**
      * 自定义话术, 异常处理
+     *
      * @param businessEnum 业务异常枚举
-     * @param message 自定义话术
+     * @param message      自定义话术
      */
     public BusinessException(BusinessEnum businessEnum, String message) {
         this.businessEnum = businessEnum;
@@ -81,6 +83,7 @@ public class BusinessException extends RuntimeException {
 
     /**
      * 获取业务异常编码
+     *
      * @return
      */
     public int getCode() {
@@ -89,6 +92,7 @@ public class BusinessException extends RuntimeException {
 
     /**
      * 获取业务异常信息
+     *
      * @return
      */
     public String getMessage() {
@@ -97,6 +101,7 @@ public class BusinessException extends RuntimeException {
 
     /**
      * 获取业务异常枚举
+     *
      * @return
      */
     public BusinessEnum getBusinessEnum() {

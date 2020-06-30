@@ -121,7 +121,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
      * 连接池配置
      */
     @Bean
-    public JedisPoolConfig poolConfig(){
+    public JedisPoolConfig poolConfig() {
         log.debug("设置redis连接池配置。。。");
         JedisPoolConfig poolConfig = new JedisPoolConfig();
         poolConfig.setMaxIdle(maxIdle);
