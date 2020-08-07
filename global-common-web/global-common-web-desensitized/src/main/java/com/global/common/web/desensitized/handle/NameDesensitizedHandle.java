@@ -11,7 +11,7 @@ import java.util.Objects;
  * @CreateTime: 2020-08-05 下午 07:40
  * @Version: v1.0
  */
-public class NameDesensitizedHandle extends AbstractDesensitizedHandle {
+public final class NameDesensitizedHandle extends AbstractDesensitizedHandle {
 
 
     @Override

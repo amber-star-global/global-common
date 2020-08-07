@@ -7,11 +7,12 @@ import java.util.Objects;
 /**
  * 手机号脱敏处理类
  * 前三后四不脱敏
+ *
  * @Author: 鲁砚琨
  * @CreateTime: 2020-08-05 下午 06:06
  * @Version: v1.0
  */
-public class PhoneDesensitizedHandle extends AbstractDesensitizedHandle {
+public final class PhoneDesensitizedHandle extends AbstractDesensitizedHandle {
 
 
     @Override
