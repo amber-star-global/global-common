@@ -3,19 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>global-common-utils</artifactId>
+        <artifactId>global-common-utils-file</artifactId>
         <groupId>com.amber.star</groupId>
         <version>1.0.0.Common</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>global-common-utils-file</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>global-common-utils-file-handle</artifactId>
 
-    <modules>
-        <module>global-common-utils-file-csv</module>
-        <module>global-common-utils-file-handle</module>
-        <module>global-common-utils-file-excel</module>
-    </modules>
 
 </project>
