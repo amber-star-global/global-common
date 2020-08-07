@@ -5,10 +5,10 @@ import com.global.common.web.idempotent.IdempotentUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 
 /**
@@ -20,7 +20,7 @@ import java.util.Collection;
 @Configuration
 public class FeignIdempotentConfig implements RequestInterceptor, Ordered {
 
-    @Autowired
+    @Resource
     private IdempotentUtil idempotentUtil;
 
     @Override
