@@ -1,11 +1,12 @@
 package com.global.common.logger;
 
-import com.alibaba.fastjson.JSON;
 import com.global.common.logger.annotation.Logger;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoggerAspect {
 
+    @Autowired
+    private Gson gson;
 
     /**
      * 记录调用方法的请求参数, 返回参数, 及报错时的错误信息
@@ -34,10 +37,10 @@ public class LoggerAspect {
         // 获取当前方法的日志级别
         Logger.LoggerLevelEnum level = logger.level();
         try {
-            String paramMessage = String.format("调用当前方法: %s, 请求参数: %s", currentMethod, isJson ? currentArgs.length == 1 ? JSON.toJSONString(currentArgs[0]) : JSON.toJSONString(currentArgs) : currentArgs);
+            String paramMessage = String.format("调用当前方法: %s, 请求参数: %s", currentMethod, isJson ? currentArgs.length == 1 ? gson.toJson(currentArgs[0]) : gson.toJson(currentArgs) : currentArgs);
             switchLevel(level, paramMessage);
             Object proceed = point.proceed();
-            String resultMessage = String.format("调用当前方法: %s, 返回结果: %s", currentMethod, isJson ? JSON.toJSONString(proceed) : proceed);
+            String resultMessage = String.format("调用当前方法: %s, 返回结果: %s", currentMethod, isJson ? gson.toJson(proceed) : proceed);
             switchLevel(level, resultMessage);
             return proceed;
         } catch (Throwable e) {

@@ -15,7 +15,6 @@
         <module>global-common-utils-file</module>
         <module>global-common-utils-constants</module>
         <module>global-common-utils-node</module>
-        <module>global-common-utils-http</module>
     </modules>
 
 </project>

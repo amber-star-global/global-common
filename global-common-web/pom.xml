@@ -20,6 +20,7 @@
         <module>global-common-web-swagger</module>
         <module>global-common-web-feign</module>
         <module>global-common-web-desensitized</module>
+        <module>global-common-web-serializable</module>
     </modules>
 
     <dependencies>

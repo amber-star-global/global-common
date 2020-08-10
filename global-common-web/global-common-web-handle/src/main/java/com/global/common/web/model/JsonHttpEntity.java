@@ -1,6 +1,6 @@
 package com.global.common.web.model;
 
-import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,7 +17,7 @@ public class JsonHttpEntity extends HttpEntity<String> {
     public static <T> HttpEntity toJson(T entity) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
-        String json = entity instanceof String ? (String) entity : JSON.toJSONString(entity);
+        String json = entity instanceof String ? (String) entity : new Gson().toJson(entity);
         return new HttpEntity<>(json, headers);
     }
 
