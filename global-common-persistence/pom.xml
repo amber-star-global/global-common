@@ -13,22 +13,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>global-common-persistence-mybatis</module>
+        <module>global-common-persistence-handle</module>
     </modules>
-
-    <properties>
-        <mysql.version>5.1.21</mysql.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-        </dependency>
-    </dependencies>
 </project>
