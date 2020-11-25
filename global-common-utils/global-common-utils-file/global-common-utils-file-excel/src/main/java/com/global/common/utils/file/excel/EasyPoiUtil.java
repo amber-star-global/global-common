@@ -28,7 +28,15 @@ import java.util.stream.Collectors;
 @Slf4j
 public class EasyPoiUtil {
 
-    public static void setCascade(XSSFWorkbook workbook, final String handleSheetName, final int validRow, final String[] offsets, final int col, final String cascadeSheetName, final List<CascadeModel> cascades) {
+    /**
+     * @param workbook         excel工作簿对象
+     * @param handleSheetName  需要做处理的sheet页名称
+     * @param validRow         校验有效行数
+     * @param col              处理的列位置
+     * @param cascadeSheetName 设置级联数据sheet页名称
+     * @param cascades         级联树形集合对象
+     */
+    public static void setCascade(XSSFWorkbook workbook, final String handleSheetName, final int validRow, final int col, final String cascadeSheetName, final List<CascadeModel> cascades) {
         List<String> firstKey = cascades.stream().map(CascadeModel::getName).collect(Collectors.toList());
         // 获取需要处理的sheet页
         setCascadeRegion(workbook, cascadeSheetName, firstKey, getCascadeMap(cascades));
@@ -39,9 +47,10 @@ public class EasyPoiUtil {
 
     /**
      * 设置级联数据
-     * @param workbook 工作簿对象
+     *
+     * @param workbook         工作簿对象
      * @param cascadeSheetName 配置级联的sheet页
-     * @param cascadeMap 级联数据Map
+     * @param cascadeMap       级联数据Map
      */
     public static void setCascadeRegion(XSSFWorkbook workbook, final String cascadeSheetName, final List<String> firstKey, final Map<String, List<String>> cascadeMap) {
         // 设置配置级联的sheet页
@@ -64,10 +73,11 @@ public class EasyPoiUtil {
 
     /**
      * 设置父子关系
+     *
      * @param handleSheet 需要处理的sheet页
-     * @param lineNum 处理的行数
-     * @param parentName 父级名称
-     * @param childNames 子集名称
+     * @param lineNum     处理的行数
+     * @param parentName  父级名称
+     * @param childNames  子集名称
      */
     private static int setPrentChildRelation(XSSFSheet handleSheet, int lineNum, String parentName, List<String> childNames) {
         XSSFRow handleRow = handleSheet.createRow(lineNum++);
@@ -80,6 +90,7 @@ public class EasyPoiUtil {
 
     /**
      * 获取级联关系Map
+     *
      * @param cascades 级联对象集合
      */
     private static Map<String, List<String>> getCascadeMap(final List<CascadeModel> cascades) {
@@ -98,10 +109,11 @@ public class EasyPoiUtil {
 
     /**
      * 设置名称管理器
-     * @param workbook 工作簿对象
+     *
+     * @param workbook        工作簿对象
      * @param handleSheetName 需要处理的sheet页名称
-     * @param parent 设置名称管理器名称
-     * @param range 设置名称管理器区间
+     * @param parent          设置名称管理器名称
+     * @param range           设置名称管理器区间
      */
     private static void setNameManagement(XSSFWorkbook workbook, String handleSheetName, String parent, String range) {
         Name name = workbook.createName();
@@ -113,8 +125,8 @@ public class EasyPoiUtil {
     }
 
     /**
-     * @param offset 偏移量, 如果给0, 表示从A列开始, 1是从B列开始
-     * @param rowId 从第几行计算
+     * @param offset   偏移量, 如果给0, 表示从A列开始, 1是从B列开始
+     * @param rowId    从第几行计算
      * @param colCount 子集的size
      */
     public static String getRange(int offset, int rowId, int colCount) {
@@ -146,7 +158,8 @@ public class EasyPoiUtil {
 
     /**
      * 设置校验
-     * @param sheet sheet页
+     *
+     * @param sheet  sheet页
      * @param parent 父级名称
      */
     public static void setValidation(XSSFSheet sheet, List<String> parent, int size, int firstCol, int lastCol) {
@@ -167,12 +180,13 @@ public class EasyPoiUtil {
 
     /**
      * 设置联动
+     *
      * @param offset 起始列
-     * @param sheet sheet页
+     * @param sheet  sheet页
      * @param rowNum 行数
      * @param colNum 列数
      */
-    public static void setDataValidation(String offset, XSSFSheet sheet, int rowNum,int colNum) {
+    public static void setDataValidation(String offset, XSSFSheet sheet, int rowNum, int colNum) {
         log.debug("设置联动, 列: {}, 设置处理的行数: {}, 列数: {}", offset, rowNum, colNum);
         XSSFDataValidationHelper dvHelper = new XSSFDataValidationHelper(sheet);
         sheet.addValidationData(getDataValidationByFormula("INDIRECT($" + offset + rowNum + ")", rowNum, colNum, dvHelper));
@@ -180,6 +194,7 @@ public class EasyPoiUtil {
 
     /**
      * 加载下拉列表内容
+     *
      * @param formulaString
      * @param naturalRowIndex
      * @param naturalColumnIndex
