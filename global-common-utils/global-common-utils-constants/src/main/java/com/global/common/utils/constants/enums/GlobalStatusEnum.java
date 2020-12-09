@@ -7,19 +7,16 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
- * 处理过程枚举
  * @Author: 鲁砚琨
- * @CreateTime: 2020-01-15 下午 03:19
+ * @CreateTime: 2020-01-15 下午 03:59
  * @Version: v1.0
  */
 @AllArgsConstructor
 @Getter
-public enum  ProcessesEnum {
+public enum GlobalStatusEnum {
 
-    UN_PROCESSED(1, "未处理"),
-    PROCESSING(2, "处理中"),
-    SUCCESS(3, "处理成功"),
-    FAIL(4, "处理失败");
+    DISABLED(0, "禁用"),
+    ENABLE(1, "启用");
 
     /**
      * 枚举值
@@ -37,8 +34,8 @@ public enum  ProcessesEnum {
      *
      * @param code 枚举编码
      */
-    public static ProcessesEnum getEnum(Integer code) {
-        Optional<ProcessesEnum> optional = Arrays.stream(ProcessesEnum.values())
+    public GlobalStatusEnum getEnum(Integer code) {
+        Optional<GlobalStatusEnum> optional = Arrays.stream(GlobalStatusEnum.values())
                 .filter(e -> e.getCode().equals(code)).findFirst();
         return optional.isPresent() ? optional.get() : null;
     }
@@ -48,8 +45,8 @@ public enum  ProcessesEnum {
      *
      * @param code 枚举编码
      */
-    public static String getEnumDesc(Integer code) {
-        ProcessesEnum object = getEnum(code);
+    public String getEnumDesc(Integer code) {
+        GlobalStatusEnum object = getEnum(code);
         return object != null ? object.getDesc() : null;
     }
 }

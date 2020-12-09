@@ -8,15 +8,16 @@ import java.util.Optional;
 
 /**
  * @Author: 鲁砚琨
- * @CreateTime: 2020-01-15 下午 03:59
+ * @CreateTime: 2020-01-15 下午 05:48
  * @Version: v1.0
  */
 @AllArgsConstructor
 @Getter
-public enum  StatusEnum {
+public enum GlobalDelFlagEnum {
 
-    DISABLED(0, "禁用"),
-    ENABLE(1, "启用");
+    DELETE(0, "删除"),
+    NORMAL(1, "正常"),
+    ;
 
     /**
      * 枚举值
@@ -28,14 +29,13 @@ public enum  StatusEnum {
      */
     private String desc;
 
-
     /**
      * 通过枚举值获取枚举
      *
      * @param code 枚举编码
      */
-    public StatusEnum getEnum(Integer code) {
-        Optional<StatusEnum> optional = Arrays.stream(StatusEnum.values())
+    public static GlobalDelFlagEnum getEnum(Integer code) {
+        Optional<GlobalDelFlagEnum> optional = Arrays.stream(GlobalDelFlagEnum.values())
                 .filter(e -> e.getCode().equals(code)).findFirst();
         return optional.isPresent() ? optional.get() : null;
     }
@@ -45,8 +45,8 @@ public enum  StatusEnum {
      *
      * @param code 枚举编码
      */
-    public String getEnumDesc(Integer code) {
-        StatusEnum object = getEnum(code);
+    public static String getEnumDesc(Integer code) {
+        GlobalDelFlagEnum object = getEnum(code);
         return object != null ? object.getDesc() : null;
     }
 }
