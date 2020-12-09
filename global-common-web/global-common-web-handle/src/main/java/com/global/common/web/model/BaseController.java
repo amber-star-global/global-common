@@ -1,8 +1,17 @@
 package com.global.common.web.model;
 
+import com.global.common.utils.constants.GlobalConstants;
+import com.global.common.utils.constants.tools.Base64Util;
+import com.global.common.web.model.request.OperatorModel;
 import com.global.common.web.model.response.ResponseBody;
 import com.global.common.web.model.response.ResponseMessage;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Author: 鲁砚琨
@@ -10,7 +19,13 @@ import lombok.extern.slf4j.Slf4j;
  * @Version: v1.0
  */
 @Slf4j
+@Component
 public class BaseController {
+
+    @Autowired
+    protected HttpServletRequest request;
+    @Autowired
+    protected Gson gson;
 
     /**
      * 处理完成调用方法
@@ -21,18 +36,28 @@ public class BaseController {
 
     /**
      * 处理成功调用方法
-     * @param message 成功消息
-     * @param object 返回数据
      */
-    protected <T> ResponseMessage success(String message, T object) {
+    protected <T> ResponseMessage<T> success(String message, T object) {
         return ResponseMessage.success(message, new ResponseBody<>(object));
     }
 
     /**
      * 处理成功调用方法
-     * @param object 返回数据
      */
     protected <T> ResponseMessage<T> success(T object) {
-        return ResponseMessage.success(new ResponseBody<>(object));
+        return success(null, object);
+    }
+
+    /**
+     * 获取操作人信息
+     */
+    protected OperatorModel getOperatorInfo() {
+        String operator = Base64Util.decode(request.getHeader(GlobalConstants.HEADER_OPERATOR_KEY));
+        if (StringUtils.hasText(operator)) {
+            log.info("获取操作人信息: {}", operator);
+            return gson.fromJson(operator, OperatorModel.class);
+        }
+        log.warn("没有获取到登录信息");
+        return new OperatorModel();
     }
 }
