@@ -20,6 +20,11 @@
         </dependency>
         <dependency>
             <groupId>com.amber.star</groupId>
+            <artifactId>global-common-utils-constants</artifactId>
+            <version>1.0.0.Common</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amber.star</groupId>
             <artifactId>global-common-web-serializable</artifactId>
             <version>1.0.0.Common</version>
         </dependency>
