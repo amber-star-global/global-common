@@ -12,14 +12,11 @@
     <artifactId>global-common-utils-file-excel</artifactId>
     <properties>
         <easypoi.version>4.1.3</easypoi.version>
+        <apache.poi.version>4.1.0</apache.poi.version>
+        <xlsx.streamer.version>2.1.0</xlsx.streamer.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.afterturn</groupId>
-            <artifactId>easypoi-spring-boot-starter</artifactId>
-            <version>${easypoi.version}</version>
-        </dependency>
         <dependency>
             <groupId>cn.afterturn</groupId>
             <artifactId>easypoi-base</artifactId>
@@ -27,13 +24,23 @@
         </dependency>
         <dependency>
             <groupId>cn.afterturn</groupId>
-            <artifactId>easypoi-web</artifactId>
+            <artifactId>easypoi-annotation</artifactId>
             <version>${easypoi.version}</version>
         </dependency>
         <dependency>
-            <groupId>cn.afterturn</groupId>
-            <artifactId>easypoi-annotation</artifactId>
-            <version>${easypoi.version}</version>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${apache.poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${apache.poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.monitorjbl</groupId>
+            <artifactId>xlsx-streamer</artifactId>
+            <version>${xlsx.streamer.version}</version>
         </dependency>
     </dependencies>
 

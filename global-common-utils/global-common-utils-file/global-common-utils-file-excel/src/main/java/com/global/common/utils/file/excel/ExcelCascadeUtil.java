@@ -21,14 +21,18 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * 配置级联域工具类
+ *
  * @Author: 鲁砚琨
  * @CreateTime: 2020-07-01 下午 12:28
  * @Version: v1.0
  */
 @Slf4j
-public class EasyPoiUtil {
+public class ExcelCascadeUtil {
 
     /**
+     * 对Excel文件设置级联域
+     *
      * @param workbook         excel工作簿对象
      * @param handleSheetName  需要做处理的sheet页名称
      * @param validRow         校验有效行数
@@ -125,6 +129,8 @@ public class EasyPoiUtil {
     }
 
     /**
+     * 获取偏移量
+     *
      * @param offset   偏移量, 如果给0, 表示从A列开始, 1是从B列开始
      * @param rowId    从第几行计算
      * @param colCount 子集的size
