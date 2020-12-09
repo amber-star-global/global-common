@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * 接口返回消息统一处理类
+ *
  * @Author: 鲁砚琨
  * @CreateTime: 2019-12-11 下午 03:19
  * @Version: v1.0
@@ -56,6 +57,7 @@ public class ResponseMessage<T> implements Serializable {
 
     /**
      * 有返回值, 处理完成调用方法
+     *
      * @param responseBody 接口返回数据
      */
     public static <T> ResponseMessage<T> success(ResponseBody<T> responseBody) {
@@ -64,7 +66,8 @@ public class ResponseMessage<T> implements Serializable {
 
     /**
      * 处理完成调用方法
-     * @param message 本次处理结果
+     *
+     * @param message      本次处理结果
      * @param responseBody 接口返回消息
      */
     public static <T> ResponseMessage<T> success(String message, ResponseBody<T> responseBody) {
@@ -83,6 +86,7 @@ public class ResponseMessage<T> implements Serializable {
 
     /**
      * 处理失败调用方法
+     *
      * @param e 业务异常
      */
     public static ResponseMessage fail(BusinessException e) {
@@ -91,6 +95,7 @@ public class ResponseMessage<T> implements Serializable {
 
     /**
      * 处理失败调用方法
+     *
      * @param statusEnum 返回消息枚举类
      */
     public static ResponseMessage fail(BusinessEnum statusEnum) {
@@ -99,8 +104,9 @@ public class ResponseMessage<T> implements Serializable {
 
     /**
      * 处理失败调用方法
+     *
      * @param statusEnum 返回消息枚举类
-     * @param message 处理消息
+     * @param message    处理消息
      */
     public static ResponseMessage fail(BusinessEnum statusEnum, String message) {
         Integer code = statusEnum != null ? statusEnum.getCode() : null;
@@ -110,8 +116,9 @@ public class ResponseMessage<T> implements Serializable {
 
     /**
      * 处理失败调用方法
-     * @param code 状态码
-     * @param message 处理消息
+     *
+     * @param code         状态码
+     * @param message      处理消息
      * @param responseBody 返回数据
      */
     public static <T> ResponseMessage<T> fail(Integer code, String message, ResponseBody<T> responseBody) {
@@ -139,7 +146,7 @@ public class ResponseMessage<T> implements Serializable {
         if (this.getResponseBody().getObject() == null)
             return false;
         if (this.getResponseBody().getObject() instanceof List)
-            return  ((List) this.getResponseBody().getObject()).size() > 0;
+            return ((List) this.getResponseBody().getObject()).size() > 0;
         return true;
     }
 
