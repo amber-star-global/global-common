@@ -2,7 +2,7 @@ package com.global.common.utils.constants.tools;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 /**
@@ -27,11 +27,6 @@ public class Base64Util {
      * @param data 数据
      */
     public static String decode(String data) {
-        try {
-            return new String(Base64.getDecoder().decode(data), Global.DEFAULT_ENCODING_UTF8);
-        } catch (UnsupportedEncodingException e) {
-            log.error(e.getMessage(), e);
-            return null;
-        }
+        return new String(Base64.getDecoder().decode(data), StandardCharsets.UTF_8);
     }
 }
