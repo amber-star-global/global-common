@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * 脱敏类型枚举
+ *
  * @Author: 鲁砚琨
  * @CreateTime: 2020-08-05 下午 06:09
  * @Version: v1.0

@@ -61,6 +61,15 @@ public class BusinessException extends RuntimeException {
     /**
      * @param code
      * @param message
+     */
+    public BusinessException(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    /**
+     * @param code
+     * @param message
      * @param exception
      */
     public BusinessException(int code, String message, Throwable exception) {

@@ -8,9 +8,4 @@ package com.global.common.utils.constants;
  */
 public interface GlobalConstants {
 
-    /**
-     * HTTP请求头, 操作人信息KEY
-     */
-    String HEADER_OPERATOR_KEY = "X-REQ-OPERATOR";
-
 }

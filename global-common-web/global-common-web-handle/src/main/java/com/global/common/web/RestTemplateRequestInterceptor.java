@@ -1,6 +1,5 @@
 package com.global.common.web;
 
-import com.global.common.utils.constants.GlobalConstants;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +50,9 @@ public class RestTemplateRequestInterceptor implements ClientHttpRequestIntercep
         HttpHeaders headers = httpRequest.getHeaders();
         if (Objects.nonNull(request)) {
             try {
-                String operator = request.getHeader(GlobalConstants.HEADER_OPERATOR_KEY);
+                String operator = request.getHeader(GlobalWebHeaderKey.REQUEST_OPERATOR_INFO);
                 if (StringUtils.hasText(operator)) {
-                    headers.add(GlobalConstants.HEADER_OPERATOR_KEY, operator);
+                    headers.add(GlobalWebHeaderKey.REQUEST_OPERATOR_INFO, operator);
                 }
             } catch (Exception e) {
                 log.warn(e.getMessage());

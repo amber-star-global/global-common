@@ -1,7 +1,7 @@
 package com.global.common.web.model;
 
-import com.global.common.utils.constants.GlobalConstants;
-import com.global.common.utils.constants.tools.Base64Util;
+import com.global.common.utils.constants.utils.Base64Util;
+import com.global.common.web.GlobalWebHeaderKey;
 import com.global.common.web.model.request.OperatorModel;
 import com.global.common.web.model.response.ResponseBody;
 import com.global.common.web.model.response.ResponseMessage;
@@ -52,7 +52,7 @@ public class BaseController {
      * 获取操作人信息
      */
     protected OperatorModel getOperatorInfo() {
-        String operator = Base64Util.decode(request.getHeader(GlobalConstants.HEADER_OPERATOR_KEY));
+        String operator = Base64Util.decode(request.getHeader(GlobalWebHeaderKey.REQUEST_OPERATOR_INFO));
         if (StringUtils.hasText(operator)) {
             log.info("获取操作人信息: {}", operator);
             return gson.fromJson(operator, OperatorModel.class);

@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * 列表分页model
+ *
  * @Author: 鲁砚琨
  * @CreateTime: 2019-12-11 下午 03:10
  * @Version: v1.0
@@ -22,7 +23,8 @@ import javax.validation.constraints.NotNull;
 @Data
 public class PageModel extends OperatorModel {
 
-    private static final long serialVersionUID = -7148850360261421687L;
+    private static final long serialVersionUID = -8545275872884768674L;
+
     /**
      * 当前页
      */

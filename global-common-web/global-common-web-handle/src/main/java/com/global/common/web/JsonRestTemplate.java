@@ -39,6 +39,17 @@ public class JsonRestTemplate extends RestTemplate {
      * @param req 请求对象
      * @param resClass 返回对象
      */
+    public <REQ, RES> RES postForObject(String url, REQ req, Map<String, String> headerMap, Class<RES> resClass) {
+        String resJson = super.postForObject(url, JsonHttpEntity.toJson(req, headerMap), String.class);
+        return gson.fromJson(resJson, resClass);
+    }
+
+    /**
+     * post请求
+     * @param url 访问地址
+     * @param req 请求对象
+     * @param resClass 返回对象
+     */
     public <REQ, RES> RES postForObject(String url, Map<String, ?> params, REQ req, Class<RES> resClass) {
         String resJson = super.postForObject(setUrlParams(url, params), JsonHttpEntity.toJson(req), String.class);
         return gson.fromJson(resJson, resClass);

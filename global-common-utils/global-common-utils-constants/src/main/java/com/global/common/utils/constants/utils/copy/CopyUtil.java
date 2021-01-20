@@ -1,6 +1,6 @@
-package com.global.common.utils.constants.tools.copy;
+package com.global.common.utils.constants.utils.copy;
 
-import com.global.common.utils.constants.tools.copy.annotation.AsField;
+import com.global.common.utils.constants.utils.copy.annotation.AsField;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;

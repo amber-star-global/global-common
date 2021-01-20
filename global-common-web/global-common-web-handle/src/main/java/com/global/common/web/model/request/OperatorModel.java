@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * 操作人信息model
+ *
  * @Author: 鲁砚琨
  * @CreateTime: 2019-12-11 下午 03:11
  * @Version: v1.0
@@ -18,11 +19,12 @@ import java.util.List;
 @Data
 public class OperatorModel implements Serializable {
 
-    private static final long serialVersionUID = 1925646412165535560L;
+    private static final long serialVersionUID = 7787687954001072005L;
+
     /**
      * 操作人Id
      */
-    protected Long operatorId = 1L;
+    protected Long operatorId = 0L;
 
     /**
      * 操作人手机号
@@ -32,10 +34,15 @@ public class OperatorModel implements Serializable {
     /**
      * 操作人名称
      */
-    protected String name = "DEFAULT";
+    protected String name = "admin";
+
+    /**
+     * 当前操作角色
+     */
+    protected Integer currentRole;
 
     /**
      * 操作人角色
      */
-    protected List<Long> currentRole;
+    protected List<Integer> roles;
 }

@@ -1,4 +1,4 @@
-package com.global.common.utils.constants.tools.copy.annotation;
+package com.global.common.utils.constants.utils.copy.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

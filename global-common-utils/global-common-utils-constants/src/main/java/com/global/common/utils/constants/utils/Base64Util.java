@@ -1,4 +1,4 @@
-package com.global.common.utils.constants.tools;
+package com.global.common.utils.constants.utils;
 
 import lombok.extern.slf4j.Slf4j;
 

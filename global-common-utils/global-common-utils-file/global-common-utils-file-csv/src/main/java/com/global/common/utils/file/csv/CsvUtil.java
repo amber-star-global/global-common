@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 public class CsvUtil extends FileUtil {
 
     private static final String FILE_SUFFIX = ".csv";
-    private static final String CHARSET_GB2312 = "GB2312";
+    private static final String CHARSET_UTF8 = "UTF-8";
 
     /**
      * 数据内容写入csv文件
@@ -52,7 +53,7 @@ public class CsvUtil extends FileUtil {
      * @param dataList 文件数据
      */
     public static <T> void write(String filePath, String fileName, List<T> dataList, Class<T> clazz) throws Exception {
-        write(filePath, fileName, dataList, clazz, CHARSET_GB2312, false);
+        write(filePath, fileName, dataList, clazz, CHARSET_UTF8, false);
     }
 
     /**
@@ -62,7 +63,7 @@ public class CsvUtil extends FileUtil {
      * @param dataList 文件数据
      */
     public static <T> void appendWrite(String filePath, String fileName, List<T> dataList, Class<T> clazz) throws Exception {
-        write(filePath, fileName, dataList, clazz, CHARSET_GB2312, true);
+        write(filePath, fileName, dataList, clazz, CHARSET_UTF8, true);
     }
 
     /**
@@ -102,9 +103,14 @@ public class CsvUtil extends FileUtil {
             cs = Charset.forName(charset);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            cs = Charset.forName("UTF-8");
+            cs = Charset.forName(CHARSET_UTF8);
         }
-        return new CsvWriter(getFileOutputStream(file, flag), ',', cs);
+        OutputStream outputStream = getFileOutputStream(file, flag);
+        Long fileLineNumber = getFileLineNumber(file);
+        if (fileLineNumber == 1) {
+            outputStream.write(new byte[] { (byte) 0xEF, (byte) 0xBB,(byte) 0xBF});
+        }
+        return new CsvWriter(outputStream, ',', cs);
     }
 
     /**

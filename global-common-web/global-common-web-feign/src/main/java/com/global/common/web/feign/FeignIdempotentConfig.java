@@ -1,6 +1,6 @@
 package com.global.common.web.feign;
 
-import com.global.common.web.idempotent.GlobalIdempotent;
+import com.global.common.web.GlobalWebHeaderKey;
 import com.global.common.web.idempotent.IdempotentUtil;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
@@ -27,12 +27,12 @@ public class FeignIdempotentConfig implements RequestInterceptor, Ordered {
     public void apply(RequestTemplate template) {
         // feign接口幂等处理
         log.debug("获取feign接口调用信息; 调用接口: {}, 请求方式: {}", template.url(), template.method());
-        Collection<String> feignTokenHeader = template.headers().get(GlobalIdempotent.REQUEST_IDEM_TOKEN);
+        Collection<String> feignTokenHeader = template.headers().get(GlobalWebHeaderKey.REQUEST_IDEM_TOKEN);
         if (feignTokenHeader != null && feignTokenHeader.size() > 0) {
             // 当前接口需要实现幂等处理, 插入token值,
             String value = idempotentUtil.getToken();
             log.debug("添加feign幂等token: {}", value);
-            template.header(GlobalIdempotent.REQUEST_IDEM_TOKEN, value);
+            template.header(GlobalWebHeaderKey.REQUEST_IDEM_TOKEN, value);
         }
     }
 

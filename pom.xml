@@ -20,6 +20,7 @@
         <module>global-common-task</module>
         <module>global-common-logger</module>
         <module>global-common-api</module>
+        <module>global-common-send</module>
     </modules>
     <packaging>pom</packaging>
 

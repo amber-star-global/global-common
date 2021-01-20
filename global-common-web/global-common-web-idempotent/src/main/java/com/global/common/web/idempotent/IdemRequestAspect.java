@@ -2,6 +2,7 @@ package com.global.common.web.idempotent;
 
 import com.global.common.exception.BusinessEnum;
 import com.global.common.exception.BusinessException;
+import com.global.common.web.GlobalWebHeaderKey;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -30,7 +31,7 @@ public class IdemRequestAspect {
     public void before() throws BusinessException {
         log.info("进行幂等校验处理...");
         // 获取请求头token信息
-        String tokenValue = request.getHeader(GlobalIdempotent.REQUEST_IDEM_TOKEN);
+        String tokenValue = request.getHeader(GlobalWebHeaderKey.REQUEST_IDEM_TOKEN);
         if (tokenValue == null) {
             log.error("没有获取到幂等token值!");
           throw new BusinessException(BusinessEnum.REQUEST_IDEMPOTENT_NOT_NULL);

@@ -30,6 +30,7 @@ public enum BusinessEnum {
     REQUEST_AUTH_PARAM_TYPE_NOT_SUPPORTED(611, "不支持的参数类型"),
     REQUEST_AUTH_PARAM_OUT_THRESHOLD(612, "请求参数数据不合法"),
 
+
     ;
 
     /**

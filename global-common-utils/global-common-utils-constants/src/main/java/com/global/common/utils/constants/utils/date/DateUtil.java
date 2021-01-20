@@ -1,4 +1,4 @@
-package com.global.common.utils.constants.tools;
+package com.global.common.utils.constants.utils.date;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * @Author: 鲁砚琨
@@ -15,25 +17,24 @@ import java.util.Date;
 @Slf4j
 public class DateUtil {
 
-    /**
-     * 转换格式: 年-月-日
-     */
-    private static final String FORMAT_DATE = "yyyy-MM-dd";
-    /**
-     * 转换格式: 年-月-日 时:分:秒
-     */
-    private static final String FORMAT_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
-    /**
-     * 转换格式: 年-月-日 时:分:秒.毫秒
-     */
-    private static final String FORMAT_DATE_TIME_MILLISECOND = "yyyy-MM-dd HH:mm:ss.SSS";
 
     /**
      * 创建时间转化模板对象
      * @param format 转换格式
      */
-    private static SimpleDateFormat createSimpleDateFormat(String format) {
+    public static SimpleDateFormat createSimpleDateFormat(String format) {
         return new SimpleDateFormat(format);
+    }
+    /**
+     * 创建时间转化模板对象
+     * @param format 转换格式
+     */
+    public static SimpleDateFormat createSimpleDateFormat(String format, Locale locale) {
+        return new SimpleDateFormat(format, locale);
+    }
+
+    public static TimeZone getDefaultTimeZone() {
+        return TimeZone.getTimeZone("GMT+8");
     }
 
     /**
@@ -43,26 +44,34 @@ public class DateUtil {
         return Calendar.getInstance().getTime();
     }
 
+    /**
+     * 获取指定时间
+     * @param date
+     */
+    public static Date getDate(long date) {
+        Calendar cal = Calendar.getInstance(getDefaultTimeZone());
+        cal.setTimeInMillis(date);
+        return cal.getTime();
+    }
 
     /**
      * 时间转换
      * @param date 日期
-     * @param format 转换格式
+     * @param pattern 转换格式
      */
-    public static String formatting(Date date, String format) {
-        return createSimpleDateFormat(format).format(date);
+    public static String formatting(Date date, DatePattern pattern) {
+        return createSimpleDateFormat(pattern.getPattern()).format(date);
     }
 
     /**
      * 时间转换
      * @param dateStr 日期字符串
-     * @param format 转换格式
+     * @param pattern 转换格式
      */
-    public static Date formatting(String dateStr, String format) {
+    public static Date formatting(String dateStr, DatePattern pattern) {
         try {
-            return createSimpleDateFormat(format).parse(dateStr);
-        } catch (ParseException e) {
-            log.error(e.getMessage(), e);
+            return createSimpleDateFormat(pattern.getPattern(), pattern.getLocale()).parse(dateStr);
+        } catch (ParseException ignored) {
         }
         return null;
     }
@@ -74,7 +83,7 @@ public class DateUtil {
      * @param type 计算类型
      */
     public static Date getCalculateDate(Date datetime, int value, int type) {
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance(getDefaultTimeZone());
         cal.setTime(datetime);
         cal.add(type, value);
         return cal.getTime();
@@ -93,7 +102,7 @@ public class DateUtil {
      * @param date 当前日期
      */
     public static int getDayOfWeek(Date date) {
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance(getDefaultTimeZone());
         if (date != null)
             cal.setTime(date);
         int week = cal.get(Calendar.DAY_OF_WEEK);
@@ -112,7 +121,7 @@ public class DateUtil {
      * @param date 指定日期
      */
     public static Date monthFirstDay(Date date) {
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance(getDefaultTimeZone());
         if (date != null)
             cal.setTime(date);
         cal.add(Calendar.MONTH, 0);
@@ -132,7 +141,7 @@ public class DateUtil {
      * @param date 指定日期
      */
     public static Date monthLastDay(Date date) {
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance(getDefaultTimeZone());
         if (date != null)
             cal.setTime(date);
         cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));

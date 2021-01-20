@@ -22,7 +22,7 @@ import java.util.List;
 @Slf4j
 @EnableWebMvc
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class CustomWebConfigurerAdapter extends WebMvcConfigurerAdapter {
 
     /**
      * jackson消息转换

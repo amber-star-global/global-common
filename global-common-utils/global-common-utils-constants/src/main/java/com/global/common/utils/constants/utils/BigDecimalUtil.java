@@ -1,4 +1,4 @@
-package com.global.common.utils.constants.tools;
+package com.global.common.utils.constants.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,8 +22,7 @@ public class BigDecimalUtil {
         // 截取, 剩下的数据删除
         CUT(BigDecimal.ROUND_DOWN),
         // 四舍五入
-        HALF_UP(BigDecimal.ROUND_HALF_UP)
-        ;
+        HALF_UP(BigDecimal.ROUND_HALF_UP);
 
         private int code;
     }
@@ -40,6 +39,7 @@ public class BigDecimalUtil {
 
     /**
      * 校验值是否为空
+     *
      * @param value 处理数据
      */
     private static boolean isValue(final BigDecimal value) {
@@ -48,8 +48,9 @@ public class BigDecimalUtil {
 
     /**
      * 保留数据位数并做补偿处理
-     * @param value 处理数据
-     * @param scale 保留位数
+     *
+     * @param value  处理数据
+     * @param scale  保留位数
      * @param repair 补位, 向上取整或是向下取整
      */
     public static BigDecimal scale(BigDecimal value, final int scale, Repair repair) {
@@ -58,6 +59,7 @@ public class BigDecimalUtil {
 
     /**
      * 指定保留位数,做四舍五入处理
+     *
      * @param value 处理数据
      * @param scale 保留位数
      */
@@ -67,6 +69,7 @@ public class BigDecimalUtil {
 
     /**
      * 加运算
+     *
      * @param values 处理数据
      */
     public static BigDecimal add(BigDecimal... values) {
@@ -75,6 +78,7 @@ public class BigDecimalUtil {
 
     /**
      * 加运算
+     *
      * @param values 处理数据
      */
     public static BigDecimal add(final int scale, BigDecimal... values) {
@@ -83,6 +87,7 @@ public class BigDecimalUtil {
 
     /**
      * 加运算
+     *
      * @param values 处理数据
      */
     public static BigDecimal add(final int scale, final Repair repair, BigDecimal... values) {
@@ -93,6 +98,7 @@ public class BigDecimalUtil {
 
     /**
      * 减运算
+     *
      * @param values 处理数据
      */
     public static BigDecimal subtract(BigDecimal... values) {
@@ -101,6 +107,7 @@ public class BigDecimalUtil {
 
     /**
      * 减运算
+     *
      * @param values 处理数据
      */
     public static BigDecimal subtract(final int scale, BigDecimal... values) {
@@ -109,15 +116,17 @@ public class BigDecimalUtil {
 
     /**
      * 减运算
+     *
      * @param values 处理数据
      */
-    public static BigDecimal subtract(final int scale, final Repair repair,BigDecimal... values) {
+    public static BigDecimal subtract(final int scale, final Repair repair, BigDecimal... values) {
         return values == null || values.length == 0 ? BigDecimal.ZERO :
                 scale(Arrays.stream(values).filter(Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::subtract), scale, repair);
     }
 
     /**
      * 乘运算
+     *
      * @param values 处理数据
      */
     public static BigDecimal multiply(BigDecimal... values) {
@@ -126,6 +135,7 @@ public class BigDecimalUtil {
 
     /**
      * 乘运算
+     *
      * @param values 处理数据
      */
     public static BigDecimal multiply(final int scale, BigDecimal... values) {
@@ -134,15 +144,17 @@ public class BigDecimalUtil {
 
     /**
      * 乘运算
+     *
      * @param values 处理数据
      */
     public static BigDecimal multiply(final int scale, final Repair repair, BigDecimal... values) {
         return values == null || values.length == 0 ? BigDecimal.ZERO : Arrays.stream(values)
-                .filter(Objects::nonNull).reduce((b1, b2) -> b1.multiply(b2).setScale(scale, repair.getCode())).get();
+                .filter(Objects::nonNull).reduce((b1, b2) -> b1.multiply(b2).setScale(scale, repair.getCode())).orElse(null);
     }
 
     /**
      * 除运算，除数为0会抛异常
+     *
      * @param values 处理数据
      */
     public static BigDecimal divide(BigDecimal... values) {
@@ -151,6 +163,7 @@ public class BigDecimalUtil {
 
     /**
      * 除运算，除数为0会抛异常
+     *
      * @param values 处理数据
      */
     public static BigDecimal divide(final int scale, BigDecimal... values) {
@@ -159,10 +172,11 @@ public class BigDecimalUtil {
 
     /**
      * 除运算，除数为0会抛异常
+     *
      * @param values 处理数据
      */
     public static BigDecimal divide(final int scale, final Repair repair, BigDecimal... values) {
         return values == null || values.length == 0 ? BigDecimal.ZERO : Arrays.stream(values)
-                .filter(Objects::nonNull).reduce((b1, b2) -> b1.divide(b2, scale, repair.getCode())).get();
+                .filter(Objects::nonNull).reduce((b1, b2) -> b1.divide(b2, scale, repair.getCode())).orElse(null);
     }
 }

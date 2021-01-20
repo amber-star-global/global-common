@@ -12,6 +12,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 脱敏注解, 定义字段的脱敏规则
+ *
  * @Author: 鲁砚琨
  * @CreateTime: 2020-08-07 上午 11:17
  * @Version: v1.0

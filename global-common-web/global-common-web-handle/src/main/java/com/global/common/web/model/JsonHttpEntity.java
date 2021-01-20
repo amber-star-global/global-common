@@ -2,9 +2,12 @@ package com.global.common.web.model;
 
 import com.google.gson.Gson;
 import lombok.NoArgsConstructor;
+import org.apache.commons.collections.MapUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+
+import java.util.Map;
 
 /**
  * @Author: 鲁砚琨
@@ -15,8 +18,15 @@ import org.springframework.http.MediaType;
 public class JsonHttpEntity extends HttpEntity<String> {
 
     public static <T> HttpEntity toJson(T entity) {
+        return toJson(entity, null);
+    }
+
+    public static <T> HttpEntity toJson(T entity, Map<String, String> headerMap) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        if (MapUtils.isNotEmpty(headerMap))
+            // 设置自定义Header信息
+            headerMap.forEach(headers::add);
         String json = entity instanceof String ? (String) entity : new Gson().toJson(entity);
         return new HttpEntity<>(json, headers);
     }
