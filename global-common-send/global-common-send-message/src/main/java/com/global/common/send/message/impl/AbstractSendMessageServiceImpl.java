@@ -5,14 +5,14 @@ import com.global.common.exception.BusinessException;
 import com.global.common.send.message.api.SendMessageService;
 import com.global.common.utils.constants.utils.Base64Util;
 import com.global.common.utils.constants.utils.DozerMapper;
-import com.global.common.web.GlobalWebHeaderKey;
+import com.global.common.web.serializable.JsonProxyUtil;
+import com.global.common.web.utils.contants.GlobalWebHeaderKey;
 import com.global.common.web.JsonRestTemplate;
-import com.global.common.web.model.request.OperatorModel;
-import com.global.common.web.model.request.SendMessageModel;
-import com.global.common.web.model.request.SendMessageOperateModel;
+import com.global.common.web.utils.model.OperatorModel;
+import com.global.common.web.utils.model.SendMessageModel;
+import com.global.common.web.utils.model.SendMessageOperateModel;
 import com.global.common.web.model.response.ResponseMessage;
 import com.google.common.collect.Maps;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,8 +37,6 @@ public abstract class AbstractSendMessageServiceImpl<MODEL extends SendMessageMo
     protected DozerMapper dozerMapper;
     @Autowired
     private JsonRestTemplate jsonRestTemplate;
-    @Autowired
-    private Gson gson;
 
     /**
      * 定义发送消息事件
@@ -141,7 +139,7 @@ public abstract class AbstractSendMessageServiceImpl<MODEL extends SendMessageMo
      */
     private String getOperatorInfo(SendMessageOperateModel operateModel) {
         OperatorModel operator = dozerMapper.map(operateModel, OperatorModel.class);
-        String operatorJson = gson.toJson(operator);
+        String operatorJson = JsonProxyUtil.toJsonString(operator);
         log.debug("操作人信息: {}", operatorJson);
         return Base64Util.encode(operatorJson);
     }

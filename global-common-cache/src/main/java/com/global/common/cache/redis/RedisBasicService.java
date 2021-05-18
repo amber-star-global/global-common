@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class RedisBasicService {
 
     @Autowired
-    protected RedisTemplate<String, Object> redisTemplate;
+    protected RedisTemplate redisTemplate;
 
     /**
      * 设置默认返回值

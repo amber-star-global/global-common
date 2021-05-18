@@ -1,4 +1,4 @@
-package com.global.common.web;
+package com.global.common.web.utils.contants;
 
 /**
  * 定义全局headerKey

@@ -2,7 +2,7 @@ package com.global.common.web.idempotent;
 
 import com.global.common.exception.BusinessEnum;
 import com.global.common.exception.BusinessException;
-import com.global.common.web.GlobalWebHeaderKey;
+import com.global.common.web.utils.contants.GlobalWebHeaderKey;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

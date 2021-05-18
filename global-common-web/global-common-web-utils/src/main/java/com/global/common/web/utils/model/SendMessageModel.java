@@ -1,4 +1,4 @@
-package com.global.common.web.model.request;
+package com.global.common.web.utils.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

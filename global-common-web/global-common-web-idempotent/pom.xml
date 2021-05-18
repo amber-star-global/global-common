@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>com.amber.star</groupId>
-            <artifactId>global-common-web-handle</artifactId>
+            <artifactId>global-common-web-utils</artifactId>
             <version>1.0.0.Common</version>
         </dependency>
         <dependency>

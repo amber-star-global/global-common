@@ -1,7 +1,7 @@
 package com.global.common.web.feign;
 
-import com.global.common.web.GlobalWebHeaderKey;
 import com.global.common.web.idempotent.IdempotentUtil;
+import com.global.common.web.utils.contants.GlobalWebHeaderKey;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;

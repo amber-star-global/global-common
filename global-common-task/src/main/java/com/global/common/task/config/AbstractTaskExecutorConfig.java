@@ -2,6 +2,8 @@ package com.global.common.task.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
@@ -14,45 +16,39 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @Version: v1.0
  */
 @Slf4j
-public class TaskExecutorConfig {
+public abstract class AbstractTaskExecutorConfig {
+
+    public AbstractTaskExecutorConfig() {
+        this.corePoolSize = 1;
+        this.maxPoolSize = 10;
+        this.keepAliveSeconds = 6000;
+    }
 
     // 核心线程数，线程池维护线程的最少数量，哪怕是空闲的。
-    @Value(value = "${global.task.executor.corePoolSize}")
+    @Value(value = "${global.task.executor.corePoolSize:}")
     private Integer corePoolSize;
     // 线程池维护线程的最大数量。
-    @Value(value = "${global.task.executor.maxPoolSize}")
+    @Value(value = "${global.task.executor.maxPoolSize:}")
     private Integer maxPoolSize;
     // 线程池维护线程所允许的空闲时间，秒。
-    @Value(value = "${global.task.executor.keepAliveSeconds}")
+    @Value(value = "${global.task.executor.keepAliveSeconds:}")
     private Integer keepAliveSeconds;
 
+    protected abstract RejectedExecutionHandler rejectedExecutionHandler();
 
     /**
      * 创建线程池, 默认配置, 默认访问策略
      */
-    protected TaskExecutor executor() {
-        return executor(corePoolSize, maxPoolSize, keepAliveSeconds); // 设置线程池拒绝策略
-    }
-
-    /**
-     * 创建线程池, 默认访问策略, 自定义配置
-     */
-    protected TaskExecutor executor(final int corePoolSize, final int maxPoolSize, final int keepAliveSeconds) {
-        return executor(corePoolSize, maxPoolSize, keepAliveSeconds, callerRunsPolicy()); // 设置线程池拒绝策略
-    }
-
-    /**
-     * 创建线程池, 启用默认配置, 配置拒绝策略
-     */
-    protected TaskExecutor executor(RejectedExecutionHandler executionHandler) {
-        return executor(corePoolSize, maxPoolSize, keepAliveSeconds, executionHandler); // 设置线程池拒绝策略
+    @Bean
+    @ConditionalOnBean(TaskExecutor.class)
+    public TaskExecutor executor() {
+        return executor(corePoolSize, maxPoolSize, keepAliveSeconds, rejectedExecutionHandler()); // 设置线程池拒绝策略
     }
 
     /**
      * 创建线程池
      */
-    protected TaskExecutor executor(
-            final int corePoolSize, final int maxPoolSize, final int keepAliveSeconds, RejectedExecutionHandler executionHandler) {
+    private TaskExecutor executor(final int corePoolSize, final int maxPoolSize, final int keepAliveSeconds, RejectedExecutionHandler executionHandler) {
         log.info("corePoolSize: {}, maxPoolSize: {}, keepAliveSeconds: {}", corePoolSize, maxPoolSize, keepAliveSeconds);
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(corePoolSize);

@@ -3,11 +3,11 @@ package com.global.common.send.message.aspect;
 import com.global.common.utils.constants.enums.GlobalProcessesEnum;
 import com.global.common.utils.constants.utils.Base64Util;
 import com.global.common.utils.constants.utils.DozerMapper;
-import com.global.common.web.GlobalWebHeaderKey;
-import com.global.common.web.model.request.OperatorModel;
-import com.global.common.web.model.request.SendMessageModel;
+import com.global.common.web.serializable.JsonProxyUtil;
+import com.global.common.web.utils.contants.GlobalWebHeaderKey;
+import com.global.common.web.utils.model.OperatorModel;
+import com.global.common.web.utils.model.SendMessageModel;
 import com.global.common.web.model.response.ResponseMessage;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -33,8 +33,6 @@ public abstract class AbstractSendMessageAspect<MODEL extends SendMessageModel> 
 
     @Autowired
     protected DozerMapper dozerMapper;
-    @Autowired
-    protected Gson gson;
 
     @Autowired
     private HttpServletRequest httpServletRequest;
@@ -81,7 +79,7 @@ public abstract class AbstractSendMessageAspect<MODEL extends SendMessageModel> 
             if (Objects.nonNull(proceed)) {
                 ResponseMessage message = dozerMapper.map(proceed, ResponseMessage.class);
                 statusEnum = message.isSuccess() ? GlobalProcessesEnum.SUCCESS : GlobalProcessesEnum.FAIL;
-                response = gson.toJson(message);
+                response = JsonProxyUtil.toJsonString(message);
             } else {
                 statusEnum = GlobalProcessesEnum.FAIL;
             }
@@ -108,7 +106,7 @@ public abstract class AbstractSendMessageAspect<MODEL extends SendMessageModel> 
             String operatorBase64 = httpServletRequest.getHeader(GlobalWebHeaderKey.REQUEST_OPERATOR_INFO);
             if (StringUtils.hasText(operatorBase64)) {
                 String operatorJson = Base64Util.decode(operatorBase64);
-                OperatorModel operator = gson.fromJson(operatorJson, OperatorModel.class);
+                OperatorModel operator = JsonProxyUtil.parseObject(operatorJson, OperatorModel.class);
                 dozerMapper.map(operator, model);
             }
         }

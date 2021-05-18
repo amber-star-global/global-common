@@ -1,11 +1,11 @@
 package com.global.common.web.model;
 
 import com.global.common.utils.constants.utils.Base64Util;
-import com.global.common.web.GlobalWebHeaderKey;
-import com.global.common.web.model.request.OperatorModel;
+import com.global.common.web.utils.model.OperatorModel;
 import com.global.common.web.model.response.ResponseBody;
 import com.global.common.web.model.response.ResponseMessage;
-import com.google.gson.Gson;
+import com.global.common.web.serializable.JsonProxyUtil;
+import com.global.common.web.utils.contants.GlobalWebHeaderKey;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,8 +24,6 @@ public class BaseController {
 
     @Autowired
     protected HttpServletRequest request;
-    @Autowired
-    protected Gson gson;
 
     /**
      * 处理完成调用方法
@@ -55,7 +53,7 @@ public class BaseController {
         String operator = Base64Util.decode(request.getHeader(GlobalWebHeaderKey.REQUEST_OPERATOR_INFO));
         if (StringUtils.hasText(operator)) {
             log.info("获取操作人信息: {}", operator);
-            return gson.fromJson(operator, OperatorModel.class);
+            return JsonProxyUtil.parseObject(operator, OperatorModel.class);
         }
         log.warn("没有获取到登录信息");
         return new OperatorModel();

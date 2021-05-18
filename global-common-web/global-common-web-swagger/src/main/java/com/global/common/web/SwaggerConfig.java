@@ -1,12 +1,10 @@
 package com.global.common.web;
 
-import com.google.common.base.Predicate;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -14,8 +12,6 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.util.Arrays;
 
 /**
  * @Author: 鲁砚琨
@@ -25,14 +21,11 @@ import java.util.Arrays;
 @Slf4j
 @Configuration
 @EnableSwagger2
+@ConditionalOnProperty(prefix = "swagger.scan", name = "package")
 public class SwaggerConfig {
 
-    @Autowired
-    private Environment env;
-
-    @Value(value = "${global.swagger.scan.package}")
+    @Value(value = "${global.swagger.scan.package:}")
     private String swaggerScanPackage;
-
 
     /**
      * 创建API应用
@@ -41,18 +34,25 @@ public class SwaggerConfig {
      * 本例采用指定扫描的包路径来定义指定要建立API的目录。
      */
     @Bean
-    public Docket createRestApi() {
-        log.debug("初始化swagger....");
-        Predicate<String> path = PathSelectors.any();
-        // 禁用正式环境swagger
-        if (Arrays.asList(env.getActiveProfiles()).contains("prod")) {
-            path = PathSelectors.none();
-        }
+    @ConditionalOnProperty(name = "spring.profiles.active", havingValue = "dev")
+    public Docket createRestApiDev() {
+        log.debug("初始化dev-swagger....");
+        return getDocket();
+    }
+
+    @Bean
+    @ConditionalOnProperty(name = "spring.profiles.active", havingValue = "qa")
+    public Docket createRestApiQa() {
+        log.debug("初始化qa-swagger....");
+        return getDocket();
+    }
+
+    private Docket getDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(swaggerScanPackage))
-                .paths(path)
+                .paths(PathSelectors.any())
                 .build();
     }
 

@@ -1,7 +1,7 @@
 package com.global.common.send.message.api;
 
 import com.global.common.exception.BusinessException;
-import com.global.common.web.model.request.SendMessageModel;
+import com.global.common.web.utils.model.SendMessageModel;
 import com.global.common.web.model.response.ResponseMessage;
 
 /**

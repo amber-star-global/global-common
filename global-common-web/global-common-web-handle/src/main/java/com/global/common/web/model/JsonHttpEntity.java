@@ -1,6 +1,6 @@
 package com.global.common.web.model;
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson.JSON;
 import lombok.NoArgsConstructor;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.http.HttpEntity;
@@ -27,7 +27,7 @@ public class JsonHttpEntity extends HttpEntity<String> {
         if (MapUtils.isNotEmpty(headerMap))
             // 设置自定义Header信息
             headerMap.forEach(headers::add);
-        String json = entity instanceof String ? (String) entity : new Gson().toJson(entity);
+        String json = entity instanceof String ? (String) entity : JSON.toJSONString(entity);
         return new HttpEntity<>(json, headers);
     }
 

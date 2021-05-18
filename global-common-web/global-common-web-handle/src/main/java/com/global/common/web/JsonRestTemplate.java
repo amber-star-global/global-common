@@ -1,9 +1,8 @@
 package com.global.common.web;
 
+import com.alibaba.fastjson.JSON;
 import com.global.common.web.model.JsonHttpEntity;
-import com.google.gson.Gson;
 import org.apache.commons.collections.MapUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,29 +18,40 @@ import java.util.Set;
 @Component
 public class JsonRestTemplate extends RestTemplate {
 
-    @Autowired
-    private Gson gson;
-
     /**
      * post请求
-     * @param url 访问地址
-     * @param req 请求对象
+     *
+     * @param url      访问地址
+     * @param req      请求对象
      * @param resClass 返回对象
      */
     public <REQ, RES> RES postForObject(String url, REQ req, Class<RES> resClass) {
         String resJson = super.postForObject(url, JsonHttpEntity.toJson(req), String.class);
-        return gson.fromJson(resJson, resClass);
+        return getResponse(resJson, resClass);
     }
 
     /**
      * post请求
-     * @param url 访问地址
-     * @param req 请求对象
+     *
+     * @param url      访问地址
+     * @param req      请求对象
      * @param resClass 返回对象
      */
     public <REQ, RES> RES postForObject(String url, REQ req, Map<String, String> headerMap, Class<RES> resClass) {
         String resJson = super.postForObject(url, JsonHttpEntity.toJson(req, headerMap), String.class);
-        return gson.fromJson(resJson, resClass);
+        return getResponse(resJson, resClass);
+    }
+
+    /**
+     * post请求
+     *
+     * @param url      访问地址
+     * @param req      请求对象
+     * @param resClass 返回对象
+     */
+    public <REQ, RES> RES postForObject(String url, Map<String, ?> params, REQ req, Class<RES> resClass) {
+        String resJson = super.postForObject(setUrlParams(url, params), JsonHttpEntity.toJson(req), String.class);
+        return getResponse(resJson, resClass);
     }
 
     /**
@@ -50,26 +60,28 @@ public class JsonRestTemplate extends RestTemplate {
      * @param req 请求对象
      * @param resClass 返回对象
      */
-    public <REQ, RES> RES postForObject(String url, Map<String, ?> params, REQ req, Class<RES> resClass) {
-        String resJson = super.postForObject(setUrlParams(url, params), JsonHttpEntity.toJson(req), String.class);
-        return gson.fromJson(resJson, resClass);
+    public <REQ, RES> RES postForObject(String url, Map<String, ?> params, REQ req, Map<String, String> headerMap, Class<RES> resClass) {
+        String resJson = super.postForObject(setUrlParams(url, params), JsonHttpEntity.toJson(req, headerMap), String.class);
+        return getResponse(resJson, resClass);
     }
 
     /**
      * GET请求
-     * @param url 访问地址
+     *
+     * @param url      访问地址
      * @param resClass 返回对象
      */
     public <RES> RES getForObject(String url, Class<RES> resClass) {
         String resJson = super.getForObject(url, String.class);
-        return gson.fromJson(resJson, resClass);
+        return getResponse(resJson, resClass);
     }
 
     /**
      * GET请求
-     * @param url 访问地址
+     *
+     * @param url      访问地址
      * @param resClass 返回对象
-     * @param params 请求参数
+     * @param params   请求参数
      */
     public <RES> RES getForObject(String url, Map<String, ?> params, Class<RES> resClass) {
         return getForObject(setUrlParams(url, params), resClass);
@@ -77,7 +89,8 @@ public class JsonRestTemplate extends RestTemplate {
 
     /**
      * 设置url后的请求参数
-     * @param url 访问地址
+     *
+     * @param url    访问地址
      * @param params 请求参数
      */
     private String setUrlParams(final String url, final Map<String, ?> params) {
@@ -100,8 +113,9 @@ public class JsonRestTemplate extends RestTemplate {
 
     /**
      * 设置拼接参数格式
-     * @param sb 拼接字符对象
-     * @param key 参数名
+     *
+     * @param sb    拼接字符对象
+     * @param key   参数名
      * @param value 参数值
      */
     private void setKeyValue(StringBuffer sb, final String key, final Object value) {
@@ -110,13 +124,24 @@ public class JsonRestTemplate extends RestTemplate {
 
     /**
      * 设置value值为集合时的处理
-     * @param key 参数名
+     *
+     * @param key    参数名
      * @param values 参数值
      */
     private String setCollectionParam(final String key, final Collection<?> values) {
         StringBuffer sb = new StringBuffer();
-        values.forEach(value-> setKeyValue(sb, key, value));
+        values.forEach(value -> setKeyValue(sb, key, value));
         return sb.toString();
+    }
+
+    /**
+     * 获取响应数据
+     *
+     * @param resJson
+     * @param resClass
+     */
+    private <RES> RES getResponse(String resJson, Class<RES> resClass) {
+        return JSON.parseObject(resJson, resClass);
     }
 
 }
