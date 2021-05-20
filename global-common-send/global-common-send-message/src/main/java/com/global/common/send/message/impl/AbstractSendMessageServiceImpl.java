@@ -11,7 +11,7 @@ import com.global.common.web.JsonRestTemplate;
 import com.global.common.web.utils.model.OperatorModel;
 import com.global.common.web.utils.model.SendMessageModel;
 import com.global.common.web.utils.model.SendMessageOperateModel;
-import com.global.common.web.model.response.ResponseMessage;
+import com.global.common.web.ResponseMessage;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

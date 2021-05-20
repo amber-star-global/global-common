@@ -1,7 +1,7 @@
 package com.global.common.web;
 
 import com.alibaba.fastjson.JSON;
-import com.global.common.web.model.JsonHttpEntity;
+import com.global.common.web.utils.model.JsonHttpEntity;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;

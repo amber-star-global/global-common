@@ -1,5 +1,6 @@
 package com.global.common.utils.constants.utils.copy;
 
+import com.global.common.utils.constants.utils.VerifyProxyUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
@@ -96,7 +97,7 @@ public class ReflectUtil {
      * @return
      */
     public static <T> Map<String, Object> getFieldKeyValue(T object) {
-        if (object == null) {
+        if (VerifyProxyUtil.isNull(object)) {
             return null;
         }
         Field[] fields = getAllFields(object);
@@ -107,7 +108,7 @@ public class ReflectUtil {
                 continue;
             }
             Object value = getFieldValue(object, field);
-            if (value != null) {
+            if (VerifyProxyUtil.nonNull(value)) {
                 map.put(key, value);
             }
         }

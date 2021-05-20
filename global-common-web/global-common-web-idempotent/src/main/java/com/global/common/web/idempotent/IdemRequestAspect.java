@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 /**
  * @Author: 鲁砚琨
@@ -32,7 +33,7 @@ public class IdemRequestAspect {
         log.info("进行幂等校验处理...");
         // 获取请求头token信息
         String tokenValue = request.getHeader(GlobalWebHeaderKey.REQUEST_IDEM_TOKEN);
-        if (tokenValue == null) {
+        if (Objects.isNull(tokenValue)) {
             log.error("没有获取到幂等token值!");
           throw new BusinessException(BusinessEnum.REQUEST_IDEMPOTENT_NOT_NULL);
         }

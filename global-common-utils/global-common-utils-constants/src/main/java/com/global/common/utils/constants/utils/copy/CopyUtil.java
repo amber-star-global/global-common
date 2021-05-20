@@ -1,5 +1,6 @@
 package com.global.common.utils.constants.utils.copy;
 
+import com.global.common.utils.constants.utils.VerifyProxyUtil;
 import com.global.common.utils.constants.utils.copy.annotation.AsField;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,11 +46,11 @@ public class CopyUtil {
         for (Field targetField : targetFields) {
             // 获取字段名称
             AsField asField = targetField.getAnnotation(AsField.class);
-            String fieldName = Objects.nonNull(asField) ? asField.value() : targetField.getName();
+            String fieldName = VerifyProxyUtil.nonNull(asField) ? asField.value() : targetField.getName();
             // 获取字段类型
             Class<?> type = targetField.getType();
             Field sourceField = getField(sourceFields, fieldName);
-            if (Objects.nonNull(sourceField)) {
+            if (VerifyProxyUtil.nonNull(sourceField)) {
                 // 判断类型是否一致
                 if (type.equals(sourceField.getType())) {
                     // 获取字段的值

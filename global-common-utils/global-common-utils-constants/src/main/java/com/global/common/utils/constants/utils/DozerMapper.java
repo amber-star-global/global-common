@@ -1,11 +1,9 @@
 package com.global.common.utils.constants.utils;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.dozer.DozerBeanMapper;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -17,7 +15,7 @@ public class DozerMapper extends DozerBeanMapper {
 
 
     public <S, T> List<T> map(Collection<S> sources, Class<T> targetClass) {
-        return CollectionUtils.isNotEmpty(sources) ? sources.stream().filter(Objects::nonNull)
+        return VerifyProxyUtil.isNotEmpty(sources) ? sources.stream().filter(VerifyProxyUtil::nonNull)
                 .map(s -> map(s, targetClass)).collect(Collectors.toList()) : null;
     }
 }

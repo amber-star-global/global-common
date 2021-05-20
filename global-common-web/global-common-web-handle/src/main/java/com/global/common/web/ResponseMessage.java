@@ -1,7 +1,8 @@
-package com.global.common.web.model.response;
+package com.global.common.web;
 
 import com.global.common.exception.BusinessException;
 import com.global.common.exception.BusinessEnum;
+import com.global.common.web.utils.model.ResponseBody;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

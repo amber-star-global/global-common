@@ -52,8 +52,6 @@ public class IdempotentUtil {
      */
     public void idempotentHandle(String key) throws BusinessException {
         log.info("幂等校验, Key为: {}", key);
-        Object obj = redisValueService.get(key);
-        log.info("{}", obj);
         // token 值不存在, 服务已被处理
         if (!redisValueService.hasKey(key)) {
             throw new BusinessException(BusinessEnum.REQUEST_IDEMPOTENT_PROCESSING, "请求失效, 请重新操作!");

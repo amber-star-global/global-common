@@ -13,7 +13,6 @@
     <packaging>pom</packaging>
     <modules>
         <module>global-common-send-message</module>
-        <module>global-common-send-retry</module>
     </modules>
 
     <dependencies>

@@ -11,5 +11,11 @@
 
     <artifactId>global-common-web-utils</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.amber.star</groupId>
+            <artifactId>global-common-web-serializable</artifactId>
+            <version>1.0.0.Common</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -7,6 +7,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 指定转换的字段
+ *
  * @Author: 鲁砚琨
  * @CreateTime: 2020-04-13 上午 10:35
  * @Version: v1.0

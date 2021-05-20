@@ -14,5 +14,13 @@
     <modules>
         <module>global-common-persistence-mybatis</module>
         <module>global-common-persistence-handle</module>
+        <module>global-common-persistence-distributed</module>
     </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+    </dependencies>
 </project>

@@ -7,7 +7,7 @@ import com.global.common.web.serializable.JsonProxyUtil;
 import com.global.common.web.utils.contants.GlobalWebHeaderKey;
 import com.global.common.web.utils.model.OperatorModel;
 import com.global.common.web.utils.model.SendMessageModel;
-import com.global.common.web.model.response.ResponseMessage;
+import com.global.common.web.ResponseMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

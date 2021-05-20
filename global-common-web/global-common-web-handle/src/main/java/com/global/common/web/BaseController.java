@@ -1,9 +1,8 @@
-package com.global.common.web.model;
+package com.global.common.web;
 
 import com.global.common.utils.constants.utils.Base64Util;
 import com.global.common.web.utils.model.OperatorModel;
-import com.global.common.web.model.response.ResponseBody;
-import com.global.common.web.model.response.ResponseMessage;
+import com.global.common.web.utils.model.ResponseBody;
 import com.global.common.web.serializable.JsonProxyUtil;
 import com.global.common.web.utils.contants.GlobalWebHeaderKey;
 import lombok.extern.slf4j.Slf4j;

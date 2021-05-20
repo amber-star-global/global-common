@@ -43,7 +43,7 @@ public class BigDecimalUtil {
      * @param value 处理数据
      */
     private static boolean isValue(final BigDecimal value) {
-        return value != null;
+        return VerifyProxyUtil.nonNull(value);
     }
 
     /**
@@ -91,7 +91,7 @@ public class BigDecimalUtil {
      * @param values 处理数据
      */
     public static BigDecimal add(final int scale, final Repair repair, BigDecimal... values) {
-        return values == null || values.length == 0 ? BigDecimal.ZERO :
+        return VerifyProxyUtil.isEmpty(values) ? BigDecimal.ZERO :
                 scale(Arrays.stream(values).filter(Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::add), scale, repair);
     }
 
@@ -120,7 +120,7 @@ public class BigDecimalUtil {
      * @param values 处理数据
      */
     public static BigDecimal subtract(final int scale, final Repair repair, BigDecimal... values) {
-        return values == null || values.length == 0 ? BigDecimal.ZERO :
+        return VerifyProxyUtil.isEmpty(values) ? BigDecimal.ZERO :
                 scale(Arrays.stream(values).filter(Objects::nonNull).reduce(BigDecimal.ZERO, BigDecimal::subtract), scale, repair);
     }
 
@@ -148,7 +148,7 @@ public class BigDecimalUtil {
      * @param values 处理数据
      */
     public static BigDecimal multiply(final int scale, final Repair repair, BigDecimal... values) {
-        return values == null || values.length == 0 ? BigDecimal.ZERO : Arrays.stream(values)
+        return VerifyProxyUtil.isEmpty(values) ? BigDecimal.ZERO : Arrays.stream(values)
                 .filter(Objects::nonNull).reduce((b1, b2) -> b1.multiply(b2).setScale(scale, repair.getCode())).orElse(null);
     }
 
@@ -176,7 +176,7 @@ public class BigDecimalUtil {
      * @param values 处理数据
      */
     public static BigDecimal divide(final int scale, final Repair repair, BigDecimal... values) {
-        return values == null || values.length == 0 ? BigDecimal.ZERO : Arrays.stream(values)
+        return VerifyProxyUtil.isEmpty(values) ? BigDecimal.ZERO : Arrays.stream(values)
                 .filter(Objects::nonNull).reduce((b1, b2) -> b1.divide(b2, scale, repair.getCode())).orElse(null);
     }
 }

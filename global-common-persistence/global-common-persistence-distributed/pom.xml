@@ -8,19 +8,24 @@
         <version>1.0.0.Common</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <description>公共组件-分布式事务</description>
 
-    <artifactId>global-common-persistence-handle</artifactId>
-
+    <artifactId>global-common-persistence-distributed</artifactId>
 
     <properties>
-        <mysql.version>5.1.21</mysql.version>
+        <com.codingapi.txlcn.version>5.0.2.RELEASE</com.codingapi.txlcn.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
+            <groupId>com.codingapi.txlcn</groupId>
+            <artifactId>txlcn-tc</artifactId>
+            <version>${com.codingapi.txlcn.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.codingapi.txlcn</groupId>
+            <artifactId>txlcn-txmsg-netty</artifactId>
+            <version>${com.codingapi.txlcn.version}</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,4 +1,4 @@
-package com.global.common.persistence.config;
+package com.global.common.persistence;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.jdbc.pool.DataSource;

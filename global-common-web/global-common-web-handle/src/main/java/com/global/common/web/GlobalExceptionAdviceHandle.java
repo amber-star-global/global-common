@@ -2,7 +2,6 @@ package com.global.common.web;
 
 import com.global.common.exception.BusinessException;
 import com.global.common.exception.BusinessEnum;
-import com.global.common.web.model.response.ResponseMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
@@ -22,6 +21,7 @@ import java.util.Set;
 
 /**
  * 全局异常统一处理类
+ *
  * @Author: 鲁砚琨
  * @CreateTime: 2019-12-11 下午 02:56
  * @Version: v1.0
@@ -98,7 +98,7 @@ public class GlobalExceptionAdviceHandle {
         String symbol = "、";
         StringBuilder strBuilder = setValidHeaderInfo(businessEnum);
         BindingResult result = e.getBindingResult();
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             for (ObjectError error : result.getAllErrors()) {
                 strBuilder.append(error.getDefaultMessage()).append(symbol);
             }
@@ -106,7 +106,7 @@ public class GlobalExceptionAdviceHandle {
         strBuilder.deleteCharAt(strBuilder.lastIndexOf(symbol));
         return ResponseMessage.fail(BusinessEnum.REQUEST_AUTH_PARAM_NOT_NULL, strBuilder.toString());
     }
-    
+
     /**
      * 处理业务异常
      */
@@ -136,8 +136,9 @@ public class GlobalExceptionAdviceHandle {
 
     /**
      * 失败消息处理
+     *
      * @param businessEnum 业务异常枚举
-     * @param e 异常信息
+     * @param e            异常信息
      */
     private ResponseMessage failMessage(BusinessEnum businessEnum, Exception e) {
         log.error(e.getMessage(), e);
