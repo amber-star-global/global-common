@@ -16,6 +16,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DistributedConfig {
 
+    /**
+     * 如果用的是tomcat的数据源代理数据连接
+     */
     @Bean
     @ConditionalOnBean(DataSource.class)
     public TomcatDatasourceAspect tomcatDatasourceAspect() {

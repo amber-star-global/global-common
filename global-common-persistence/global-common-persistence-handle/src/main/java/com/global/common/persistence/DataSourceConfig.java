@@ -1,7 +1,7 @@
 package com.global.common.persistence;
 
+import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -20,12 +20,11 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 public class DataSourceConfig implements TransactionManagementConfigurer {
 
     @Autowired
-    private DataSource dataSource;
-
+    private HikariDataSource hikariDataSource;
 
     @Override
     public PlatformTransactionManager annotationDrivenTransactionManager() {
-        log.info("配置事务管理, 配置数据源: {}", dataSource);
-        return new DataSourceTransactionManager(dataSource);
+        log.debug("配置事务管理, 配置数据源: {}", hikariDataSource);
+        return new DataSourceTransactionManager(hikariDataSource);
     }
 }
