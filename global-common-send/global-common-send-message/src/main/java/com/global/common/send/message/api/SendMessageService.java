@@ -1,8 +1,7 @@
 package com.global.common.send.message.api;
 
-import com.global.common.exception.BusinessException;
-import com.global.common.web.utils.model.SendMessageModel;
 import com.global.common.web.ResponseMessage;
+import com.global.common.web.utils.model.SendMessageModel;
 
 /**
  * @Author: 鲁砚琨
@@ -16,5 +15,5 @@ public interface SendMessageService<MODEL extends SendMessageModel> {
      *
      * @param model 发送消息Model
      */
-    ResponseMessage process(MODEL model) throws BusinessException;
+    ResponseMessage process(MODEL model);
 }

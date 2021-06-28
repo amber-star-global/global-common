@@ -5,13 +5,13 @@ import com.global.common.exception.BusinessException;
 import com.global.common.send.message.api.SendMessageService;
 import com.global.common.utils.constants.utils.Base64Util;
 import com.global.common.utils.constants.utils.DozerMapper;
+import com.global.common.web.JsonRestTemplate;
+import com.global.common.web.ResponseMessage;
 import com.global.common.web.serializable.JsonProxyUtil;
 import com.global.common.web.utils.contants.GlobalWebHeaderKey;
-import com.global.common.web.JsonRestTemplate;
 import com.global.common.web.utils.model.OperatorModel;
 import com.global.common.web.utils.model.SendMessageModel;
 import com.global.common.web.utils.model.SendMessageOperateModel;
-import com.global.common.web.ResponseMessage;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public abstract class AbstractSendMessageServiceImpl<MODEL extends SendMessageMo
      * @param model 发送消息Model
      */
     @Override
-    public ResponseMessage process(MODEL model) throws BusinessException {
+    public ResponseMessage process(MODEL model) {
         ResponseMessage responseMessage = null;
         try {
             log.info("发送消息, 处理事件: {}, 请求参数: {}", getEventEnum(), model);
@@ -105,7 +105,7 @@ public abstract class AbstractSendMessageServiceImpl<MODEL extends SendMessageMo
      *
      * @param model 发送消息Model
      */
-    protected ResponseMessage getResponse(MODEL model) throws BusinessException {
+    protected ResponseMessage getResponse(MODEL model) {
         if (Objects.nonNull(model.getMethod()) && StringUtils.hasText(model.getRequestUrl())) {
             switch (model.getMethod()) {
                 case GET:
