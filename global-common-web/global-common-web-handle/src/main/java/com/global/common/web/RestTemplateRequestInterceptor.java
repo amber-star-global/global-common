@@ -49,17 +49,16 @@ public class RestTemplateRequestInterceptor implements ClientHttpRequestIntercep
     }
 
     @NonNull
-    public ClientHttpResponse intercept(@NonNull HttpRequest httpRequest, @NonNull byte[] bytes, @NonNull ClientHttpRequestExecution clientHttpRequestExecution) throws IOException {
+    public ClientHttpResponse intercept(@NonNull HttpRequest httpRequest, @NonNull byte[] bytes, @NonNull ClientHttpRequestExecution execution) throws IOException {
         HttpHeaders headers = httpRequest.getHeaders();
         log.info("httpHeaders: {}", headers.getClass());
         if (Objects.nonNull(this.request)) {
-            log.info("request: {}", this.request.getClass());
             try {
                 String operatorHeader = this.request.getHeader(GlobalWebHeaderKey.REQUEST_OPERATOR_INFO);
                 if (StringUtils.isNotBlank(operatorHeader)) {
-                    log.info("操作人信息: {}", operatorHeader);
+                    log.debug("操作人信息: {}", operatorHeader);
                     List<String> currentOperateHeader = headers.get(GlobalWebHeaderKey.REQUEST_OPERATOR_INFO);
-                    log.info("当前header操作人信息: {}", JsonProxyUtil.toJsonString(currentOperateHeader));
+                    log.debug("当前header操作人信息: {}", JsonProxyUtil.toJsonString(currentOperateHeader));
                     if (CollectionUtils.isEmpty(currentOperateHeader)) {
                         headers.add(GlobalWebHeaderKey.REQUEST_OPERATOR_INFO, operatorHeader);
                     }
@@ -68,6 +67,6 @@ public class RestTemplateRequestInterceptor implements ClientHttpRequestIntercep
                 log.warn(e.getMessage());
             }
         }
-        return clientHttpRequestExecution.execute(httpRequest, bytes);
+        return execution.execute(httpRequest, bytes);
     }
 }
