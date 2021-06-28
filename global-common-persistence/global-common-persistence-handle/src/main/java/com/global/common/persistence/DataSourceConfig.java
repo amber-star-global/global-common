@@ -3,6 +3,8 @@ package com.global.common.persistence;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 @Slf4j
 @Configuration
 @EnableTransactionManagement
+@AutoConfigureAfter(DataSourceAutoConfiguration.class)
 public class DataSourceConfig implements TransactionManagementConfigurer {
 
     @Autowired
